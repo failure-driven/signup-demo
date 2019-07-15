@@ -1,15 +1,17 @@
 class User < ApplicationRecord
-   validate :validate_username
+  validate :validate_username
 
-   private
+  private
 
-   def validate_username
-     if username.index(' ') or username.index("\t")
-       errors.add(:username, 'cannot have white space')
-     end
-
-     if username.index('?')
-       errors.add(:username, 'cannot have question mark')
-     end
-   end
+  def validate_username
+    [
+      { character: ' ',  name: 'white space'},
+      { character: "\t", name: 'white space'},
+      { character: '?',  name: 'question mark'},
+    ].each do |character|
+      if username.index(character[:character])
+        errors.add(:username, "cannot have #{character[:name]}")
+      end
+    end
+  end
 end
