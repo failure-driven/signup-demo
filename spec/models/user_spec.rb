@@ -13,6 +13,12 @@ RSpec.describe User, type: :model do
         expect(user).to_not be_valid
         expect(user.errors.messages).to eq(username: ["cannot have white space"])
       end
+
+      it 'is not valid with TAB' do
+        user = User.new(username: "with\ttab")
+        expect(user).to_not be_valid
+        expect(user.errors.messages).to eq(username: ["cannot have white space"])
+      end
     end
   end
 end
