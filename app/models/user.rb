@@ -8,6 +8,7 @@ class User < ApplicationRecord
       { character: ' ',  name: 'white space'},
       { character: "\t", name: 'white space'},
       { character: '?',  name: 'question mark'},
+      { character: '/',  name: 'forward slash'},
     ].each do |character|
       if username.index(character[:character])
         errors.add(:username, "cannot have #{character[:name]}")
