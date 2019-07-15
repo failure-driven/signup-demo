@@ -25,6 +25,12 @@ RSpec.describe User, type: :model do
         expect(user).to_not be_valid
         expect(user.errors.messages).to eq(username: ["cannot have question mark"])
       end
+
+      it "is not valid with '/' character" do
+        user = User.new(username: 'with/forward_slash')
+        expect(user).to_not be_valid
+        expect(user.errors.messages).to eq(username: ["cannot have forward slash"])
+      end
     end
   end
 end
