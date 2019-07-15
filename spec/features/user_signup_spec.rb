@@ -13,4 +13,19 @@ feature 'User signup', js: true do
       wait_for { page.current_path }.to eq "/users/selenawiththetattoo"
     end
   end
+
+  scenario "A user with an invalid username" do
+    When "Michael visits the site to sign up with his name and username '50/50'" do
+      visit('/')
+      fill_in('Name', with: 'Michael Milewski')
+      fill_in('Username', with: '50/50')
+      click_on("Sign up")
+    end
+
+    Then "He sees an error suggesting his handle is not valid with a '/' slash character" do
+      wait_for {
+        page.find('#error_explanation').find_all('li').map(&:text)
+      }.to eq(["Username cannot have forward slash"])
+    end
+  end
 end
