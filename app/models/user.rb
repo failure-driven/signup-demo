@@ -7,5 +7,9 @@ class User < ApplicationRecord
      if username.index(' ')
        errors.add(:username, 'cannot have white space')
      end
+
+     if username.index("\t")
+       errors.add(:username, 'cannot have white space')
+     end
    end
 end
