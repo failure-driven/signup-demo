@@ -28,4 +28,25 @@ feature 'User signup', js: true do
       }.to eq(["Username cannot have forward slash"])
     end
   end
+
+  context 'A user with username "developer" exists' do
+    before do
+      User.create(username: "developer")
+    end
+
+    scenario "A user attempts to register with non unique username" do
+      When "Michael visits the site to sign up with his name and username 'developer'" do
+        visit('/')
+        fill_in('Name', with: 'Michael Milewski')
+        fill_in('Username', with: 'developer')
+        click_on("Sign up")
+      end
+
+      Then "He sees an error suggesting his handle is not valid with a '/' slash character" do
+        wait_for {
+          page.find('#error_explanation').find_all('li').map(&:text)
+        }.to eq(["Username has already been taken"])
+      end
+    end
+  end
 end
