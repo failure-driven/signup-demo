@@ -16,9 +16,14 @@
     <%= form.text_field :name, placeholder: "Full Name" %>
   </div>
 
-  <div class="field">
+  <%= content_tag :div,
+    id: "user_data",
+    data: @user.to_json do %>
+  <% end %>
+
+  <div id="signupUsernameReact" class="field">
     <%= form.label :username %>
-    <%= form.text_field :username, placeholder: "Username" %>
+    <%= javascript_pack_tag 'signup' %>
   </div>
 
   <div class="actions">
