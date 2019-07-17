@@ -4,5 +4,9 @@ Rails.application.routes.draw do
   resources :users, only: [:new, :create]
   get "/users/:username" => "users#show", as: :user
 
+  namespace :api do
+    get 'attempt/:username', to: 'usernames#attempt'
+  end
+
   root to: "users#new"
 end
