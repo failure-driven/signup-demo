@@ -3,33 +3,21 @@ require 'rails_helper'
 RSpec.describe User, type: :model do
   describe 'username' do
     it 'is valid for alpha numeric characters' do
-      user = User.new(username: 'abc123')
+      username_all_valid_chars = [('a'..'z').to_a | ('A'..'Z').to_a | (0..9).to_a, '_', '-'].join
+      # "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
+      user = User.new(username: username_all_valid_chars)
       expect(user).to be_valid
     end
 
-    context 'not valid characters' do
-      it 'is not valid with SPACE' do
-        user = User.new(username: 'with space')
-        expect(user).to_not be_valid
-        expect(user.errors.messages).to eq(username: ["cannot have white space"])
-      end
-
-      it 'is not valid with TAB' do
-        user = User.new(username: "with\ttab")
-        expect(user).to_not be_valid
-        expect(user.errors.messages).to eq(username: ["cannot have white space"])
-      end
-
-      it "is not valid with '?' character" do
-        user = User.new(username: 'with?question_mark')
-        expect(user).to_not be_valid
-        expect(user.errors.messages).to eq(username: ["cannot have question mark"])
-      end
-
-      it "is not valid with '/' character" do
-        user = User.new(username: 'with/forward_slash')
-        expect(user).to_not be_valid
-        expect(user.errors.messages).to eq(username: ["cannot have forward slash"])
+    context 'not valid' do
+      " \t?|;./".chars.each do |character|
+        it "is not valid with '#{character}' character" do
+          user = User.new(username: "with-#{character}-character")
+          expect(user).to_not be_valid
+          expect(
+            user.errors.messages
+          ).to eq(username: ["Username can only have alphanumeric characters underscore '_' and hyphen '-'"])
+        end
       end
     end
   end

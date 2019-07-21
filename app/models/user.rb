@@ -2,17 +2,15 @@ class User < ApplicationRecord
   validate :validate_username
   validates :username, uniqueness: true
 
+  VALID_CHARACTERS = [('a'..'z').to_a | ('A'..'Z').to_a | (0..9).to_a, '_', '-'].join.chars.freeze
+
   private
 
   def validate_username
-    [
-      { character: ' ',  name: 'white space'},
-      { character: "\t", name: 'white space'},
-      { character: '?',  name: 'question mark'},
-      { character: '/',  name: 'forward slash'},
-    ].each do |character|
-      if username.index(character[:character])
-        errors.add(:username, "cannot have #{character[:name]}")
+    username.chars.sort.uniq.each do |username_character|
+      unless VALID_CHARACTERS.include?(username_character)
+        errors.add(:username, "Username can only have alphanumeric characters underscore '_' and hyphen '-'")
+        break
       end
     end
   end
