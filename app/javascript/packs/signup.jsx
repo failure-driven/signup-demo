@@ -3,12 +3,17 @@ import ReactDOM from "react-dom";
 import Signup from "../react/Signup";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const node = document.getElementById("user_data");
-  const user = JSON.parse(node.getAttribute("data"));
+  const currentScript = (() => {
+    const scripts = document.getElementsByTagName("script");
+    return scripts[scripts.length - 1];
+  })();
+  const dataAttributes = {};
+  Object.entries(currentScript.parentElement.attributes).forEach(([, data]) => {
+    dataAttributes[data.name.replace(/^data-/, "")] = JSON.parse(data.value);
+  });
+
   ReactDOM.render(
-    <Signup user={user} />,
-    document
-      .getElementById("signupUsernameReact")
-      .appendChild(document.createElement("div"))
+    <Signup data={dataAttributes} />,
+    currentScript.parentElement.appendChild(document.createElement("div"))
   );
 });

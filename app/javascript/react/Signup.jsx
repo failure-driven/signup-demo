@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { shape, string } from "prop-types";
+import { object as objectType, shape, string } from "prop-types";
 import { attempt } from "../api/Api";
 
-const Signup = ({ user }) => {
-  const [username, setUsername] = useState(user.username || "");
+const Signup = ({ data }) => {
+  const [modelField, setModelField] = useState(data.data[data.fieldname] || "");
   const [error, setError] = useState();
 
   const updateUsername = event => {
     event.preventDefault();
-    setUsername(event.target.value);
+    setModelField(event.target.value);
     attempt(event.target.value).then(result => {
       const { errors } = result;
       if (errors) {
@@ -22,17 +22,20 @@ const Signup = ({ user }) => {
   return (
     <input
       type="text"
-      placeholder="Username"
+      placeholder={data.placeholder}
       onChange={updateUsername}
-      name="user[username]"
-      value={username}
+      name={`${data.modelname}[${data.fieldname}]`}
+      value={modelField}
       className={error ? "field_with_errors" : ""}
     />
   );
 };
 Signup.propTypes = {
-  user: shape({
-    username: string
+  data: shape({
+    data: objectType.isRequired,
+    modelname: string.isRequired,
+    placeholder: string.isRequired,
+    fieldname: string.isRequired
   }).isRequired
 };
 

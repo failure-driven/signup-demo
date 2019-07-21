@@ -1,5 +1,5 @@
 <%= form_with(model: user, local: true) do |form| %>
-  <% if user.errors.any? %>
+  <% if user&.errors&.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(user.errors.count, "error") %> prohibited this user from being saved:</h2>
 
@@ -16,14 +16,9 @@
     <%= form.text_field :name, placeholder: "Full Name" %>
   </div>
 
-  <%= content_tag :div,
-    id: "user_data",
-    data: @user.to_json do %>
-  <% end %>
-
-  <div id="signupUsernameReact" class="field">
+  <div class="field">
     <%= form.label :username %>
-    <%= javascript_pack_tag 'signup' %>
+    <%= react_input_field_for @user, modelname: 'user', fieldname: 'username', placeholder: 'Username' %>
   </div>
 
   <div class="actions">
