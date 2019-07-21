@@ -1,5 +1,5 @@
 const attempt = username => {
-  return fetch(`/api/attempt/${username}`, {
+  return fetch(`/api/attempt?username=${encodeURI(username)}`, {
     method: "GET",
     headers: {
       "Content-type": "application/json",

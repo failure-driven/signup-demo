@@ -9,7 +9,7 @@ class User < ApplicationRecord
   def validate_username
     username.chars.sort.uniq.each do |username_character|
       unless VALID_CHARACTERS.include?(username_character)
-        errors.add(:username, "Username can only have alphanumeric characters underscore '_' and hyphen '-'")
+        errors.add(:username, "can only have alphanumeric characters underscore '_' and hyphen '-'")
         break
       end
     end

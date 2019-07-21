@@ -1,31 +1,33 @@
 require 'rails_helper'
 
 feature 'User signup', js: true do
-  scenario "A user with a valid username" do
-    When "Selena visits the site to sign up with her name and username 'selenawiththetattoo'" do
+  scenario "User signs up successfully" do
+    When "Selena signs up with a valid username" do
       visit('/')
       fill_in('Name', with: 'Selena Small')
       fill_in('Username', with: 'selenawiththetattoo')
       click_on("Sign up")
     end
 
-    Then "She sees here unique url /users/selenawiththetattoo" do
+    Then "her profile is shown" do
+      # TODO change for H1 to be my profile
+      # TODO Welcome handle
       wait_for { page.current_path }.to eq "/users/selenawiththetattoo"
     end
   end
 
-  scenario "A user with an invalid username" do
-    When "Michael visits the site to sign up with his name and username '50/50'" do
+  scenario "User cannot sign up with an invalid username" do
+    When "Michael signs up with an invalid username" do
       visit('/')
       fill_in('Name', with: 'Michael Milewski')
       fill_in('Username', with: '50/50')
       click_on("Sign up")
     end
 
-    Then "He sees an error suggesting his handle is not valid with a '/' slash character" do
+    Then "an error is shown" do
       wait_for {
         page.find('#error_explanation').find_all('li').map(&:text)
-      }.to eq(["Username cannot have forward slash"])
+      }.to eq(["Username can only have alphanumeric characters underscore '_' and hyphen '-'"])
     end
   end
 
@@ -34,15 +36,15 @@ feature 'User signup', js: true do
       User.create(username: "developer")
     end
 
-    scenario "A user attempts to register with non unique username" do
-      When "Michael visits the site to sign up with his name and username 'developer'" do
+    scenario "User cannot sign up with an existing username" do
+      When "Michael signs up with username 'developer'" do
         visit('/')
         fill_in('Name', with: 'Michael Milewski')
         fill_in('Username', with: 'developer')
-        click_on("Sign up")
+        click_on("Sign up") # change and new error
       end
 
-      Then "He sees an error suggesting his handle is not valid with a '/' slash character" do
+      Then "an error is shown" do
         wait_for {
           page.find('#error_explanation').find_all('li').map(&:text)
         }.to eq(["Username has already been taken"])

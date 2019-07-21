@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "Attempt", type: :request do
   describe "GET /attempt" do
     it "responds with success" do
-      get '/api/attempt/username1',
+      get '/api/attempt?username=username1',
         headers: {
           'Accept': 'application/json'
         }
@@ -11,7 +11,7 @@ RSpec.describe "Attempt", type: :request do
     end
 
     it "responds with no errors for successful attempt for username" do
-      get '/api/attempt/user_attempt_1',
+      get '/api/attempt?username=user_attempt_1',
         headers: {
           'Accept': 'application/json'
         }
@@ -26,7 +26,7 @@ RSpec.describe "Attempt", type: :request do
       end
 
       it "responds with errors and susggestions for a username that is taken" do
-        get '/api/attempt/user_1',
+        get '/api/attempt?username=user_1',
           headers: {
             'Accept': 'application/json'
           }

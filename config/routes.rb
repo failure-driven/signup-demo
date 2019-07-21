@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   get "/users/:username" => "users#show", as: :user
 
   namespace :api do
-    get 'attempt/:username', to: 'usernames#attempt'
+    get 'attempt', to: 'usernames#attempt'
   end
 
   root to: "users#new"

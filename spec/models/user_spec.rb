@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
           expect(user).to_not be_valid
           expect(
             user.errors.messages
-          ).to eq(username: ["Username can only have alphanumeric characters underscore '_' and hyphen '-'"])
+          ).to eq(username: ["can only have alphanumeric characters underscore '_' and hyphen '-'"])
         end
       end
     end
