@@ -73,4 +73,7 @@ RSpec.configure do |config|
     clear_api_error
     Rails.application.config.should_pause = nil
   end
+
+  # render views for controller specs to render jbuilder templates
+  config.render_views = true
 end

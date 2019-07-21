@@ -158,6 +158,10 @@ GEM
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
       rspec-mocks (~> 3.8.0)
+    rspec-activemodel-mocks (1.1.0)
+      activemodel (>= 3.0)
+      activesupport (>= 3.0)
+      rspec-mocks (>= 2.99, < 4.0)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
     rspec-example_steps (3.0.2)
@@ -248,6 +252,7 @@ DEPENDENCIES
   pry-rails
   puma (~> 3.11)
   rails (~> 6.0.0.rc1)
+  rspec-activemodel-mocks
   rspec-example_steps
   rspec-rails
   rspec-wait
