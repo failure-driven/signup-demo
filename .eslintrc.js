@@ -8,6 +8,7 @@ module.exports = {
   ],
   globals: {
     document: false,
+    fetch: false
   },
   settings: {
     "import/resolver": {

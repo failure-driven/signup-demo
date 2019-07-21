@@ -18,4 +18,4 @@ const attempt = username => {
     .then(response => response.json());
 };
 
-export { attempt };
+export default { attempt };
