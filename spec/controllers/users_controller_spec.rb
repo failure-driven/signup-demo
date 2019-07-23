@@ -2,11 +2,23 @@ require "rails_helper"
 
 describe UsersController, type: :controller do
   describe 'GET show' do
-    it 'shows a user' do
-      pending 'how to hit custom action show?'
-      get :show
+    let(:user) { mock_model(User) }
+    before { allow(User).to receive(:find_by).and_return(user) }
+
+    it 'finds user by username' do
+      expect(User).to receive(:find_by).with(username: 'the username').and_return(user)
+      get :show, params: { username: 'the username' }
+    end
+
+    it 'returns success' do
+      get :show, params: { username: 'hi' }
       expect(response.status).to eq(200)
-      expect(response.body).to eq('body')
+    end
+
+    it 'returns error' do
+      allow(User).to receive(:find_by).and_return(nil)
+      get :show, params: { username: 'hi' }
+      expect(response.status).to eq(422)
     end
   end
 
@@ -19,27 +31,43 @@ describe UsersController, type: :controller do
   end
 
   describe 'POST create' do
-    let(:user_params) { {name: 'the name', username: 'the username', other: 'ignored'} }
-    let(:permitted_params) do
-      params_to_model = ActionController::Parameters.new(
-        user_params
-      ).permit(:name, :username)
+    let(:user) { mock_model(User) }
+    before { allow(User).to receive(:new).and_return(user) }
+
+    context 'fails to saves' do
+      before { allow(user).to receive(:save).and_return(false) }
+
+      it 'returns 422' do
+        post :create, params: {user: {name: 'the name', username: 'the username'} }
+        expect(response.status).to eq(422)
+      end
     end
 
-    it 'user fails to save' do
-      user = mock_model(User)
-      expect(User).to receive(:new).with(permitted_params).and_return(user)
-      expect(user).to receive(:save).and_return(false)
-      post :create, params: {user: user_params}
-      expect(response.status).to eq(200)
-    end
+    context 'successfully saves' do
+      before { allow(user).to receive(:save).and_return(true) }
 
-    it 'user saves' do
-      user = mock_model(User)
-      expect(User).to receive(:new).with(permitted_params).and_return(user)
-      expect(user).to receive(:save).and_return(true)
-      post :create, params: {user: user_params}
-      expect(response.status).to eq(302)
+      it 'redirects if user saves successfully' do
+        expect(user).to receive(:save).and_return(true)
+        post :create, params: {user: {name: 'the name', username: 'the username'} }
+        expect(response).to be_redirect
+        expect(flash.notice).to eq('User was successfully created.')
+      end
+
+      it 'passes the permitted parameters to user new' do
+        user_params = {user: {name: 'the name', username: 'the username', ignored: 'i am ignored'} }
+        permitted_params = ActionController::Parameters.new(
+          user_params
+        ).permit(:name, :username)
+        expect(User).to receive(:new).with(permitted_params).and_return(user)
+        post :create, params: {user: user_params}
+        post :create, params: {
+          user: {
+            name: 'the name',
+            username: 'the username',
+            ignored: 'i am ignored'
+          }
+        }
+      end
     end
   end
 end

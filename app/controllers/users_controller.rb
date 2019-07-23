@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
   def show
     @user = User.find_by(username: params[:username])
+
+    render :new, status: 422 unless @user
   end
 
   def new
@@ -13,7 +15,7 @@ class UsersController < ApplicationController
     if @user.save
       redirect_to "/users/#{@user.username}", notice: 'User was successfully created.'
     else
-      render :new
+      render :new, status: 422
     end
   end
 

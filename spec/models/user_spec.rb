@@ -10,13 +10,13 @@ RSpec.describe User, type: :model do
     end
 
     context 'not valid' do
-      " \t?|;./".chars.each do |character|
+      " \t?|;.,/".chars.each do |character|
         it "is not valid with '#{character}' character" do
           user = User.new(username: "with-#{character}-character")
           expect(user).to_not be_valid
           expect(
             user.errors.messages
-          ).to eq(username: ["can only have alphanumeric characters underscore '_' and hyphen '-'"])
+          ).to eq(username: ["can only have alphanumeric characters"])
         end
       end
     end
