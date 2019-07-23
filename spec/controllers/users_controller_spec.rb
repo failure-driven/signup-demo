@@ -34,5 +34,17 @@ describe UsersController, type: :controller do
     let(:user) { mock_model(User) }
     before { allow(User).to receive(:new).and_return(user) }
 
+    it 'redirects if user saves successfully' do
+      expect(user).to receive(:save).and_return(true)
+      post :create,
+        params: {
+          user: {
+            name:     'the name',
+            username: 'the username'
+          }
+        }
+      expect(response).to be_redirect
+      expect(flash.notice).to eq('User was successfully created.')
+    end
   end
 end
