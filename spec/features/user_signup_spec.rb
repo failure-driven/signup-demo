@@ -9,7 +9,12 @@ feature 'User signup', js: true do
       click_on("Sign up")
     end
 
-    # THEN her profile is shown?
+    Then "her profile is shown" do
+      # TODO change for H1 to be my profile
+      # TODO Welcome handle
+      # TODO success message
+      wait_for { page.current_path }.to eq "/users/selenawiththetattoo"
+    end
   end
 
   # User cannot sign up with an invalid username
