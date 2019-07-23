@@ -11,14 +11,14 @@ describe UsersController, type: :controller do
     end
 
     it 'returns success' do
-      get :show, params: { username: 'hi' }
+      get :show, params: { username: 'real-user' }
       expect(response.status).to eq(200)
     end
 
-    it 'returns error' do
+    it 'returns error not found' do
       allow(User).to receive(:find_by).and_return(nil)
-      get :show, params: { username: 'hi' }
-      expect(response.status).to eq(422)
+      get :show, params: { username: 'non-existant-user' }
+      expect(response.status).to eq(404)
     end
   end
 
@@ -34,40 +34,5 @@ describe UsersController, type: :controller do
     let(:user) { mock_model(User) }
     before { allow(User).to receive(:new).and_return(user) }
 
-    context 'fails to saves' do
-      before { allow(user).to receive(:save).and_return(false) }
-
-      it 'returns 422' do
-        post :create, params: {user: {name: 'the name', username: 'the username'} }
-        expect(response.status).to eq(422)
-      end
-    end
-
-    context 'successfully saves' do
-      before { allow(user).to receive(:save).and_return(true) }
-
-      it 'redirects if user saves successfully' do
-        expect(user).to receive(:save).and_return(true)
-        post :create, params: {user: {name: 'the name', username: 'the username'} }
-        expect(response).to be_redirect
-        expect(flash.notice).to eq('User was successfully created.')
-      end
-
-      it 'passes the permitted parameters to user new' do
-        user_params = {user: {name: 'the name', username: 'the username', ignored: 'i am ignored'} }
-        permitted_params = ActionController::Parameters.new(
-          user_params
-        ).permit(:name, :username)
-        expect(User).to receive(:new).with(permitted_params).and_return(user)
-        post :create, params: {user: user_params}
-        post :create, params: {
-          user: {
-            name: 'the name',
-            username: 'the username',
-            ignored: 'i am ignored'
-          }
-        }
-      end
-    end
   end
 end
