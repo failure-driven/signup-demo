@@ -12,7 +12,7 @@ module InputHelper
 
   def react_input_field_for(model, args)
     model_data model, args do
-      javascript_pack_tag 'signup'
+      javascript_pack_tag 'input'
     end
   end
 end

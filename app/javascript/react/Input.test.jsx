@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Signup from "./Signup";
+import Input from "./Input";
 
-describe("Signup", () => {
+describe("Input", () => {
   it("renders an input box with the passed in username", () => {
     const data = {
       data: { username: "the username" },
@@ -10,7 +10,7 @@ describe("Signup", () => {
       placeholder: "the placeholder",
       fieldname: "username"
     };
-    const wrapper = shallow(<Signup data={data} />);
+    const wrapper = shallow(<Input data={data} />);
     expect(wrapper.find("input").prop("value")).toEqual("the username");
     expect(wrapper).toMatchInlineSnapshot(`
       <input
@@ -31,7 +31,7 @@ describe("Signup", () => {
       placeholder: "the placeholder",
       fieldname: "username"
     };
-    const wrapper = shallow(<Signup data={data} />);
+    const wrapper = shallow(<Input data={data} />);
     expect(wrapper.find("input").prop("value")).toEqual("");
   });
 });

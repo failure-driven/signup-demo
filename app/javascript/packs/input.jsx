@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Signup from "../react/Signup";
+import Input from "../react/Input";
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentScript = (() => {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   ReactDOM.render(
-    <Signup data={dataAttributes} />,
+    <Input data={dataAttributes} />,
     currentScript.parentElement.appendChild(document.createElement("div"))
   );
 });

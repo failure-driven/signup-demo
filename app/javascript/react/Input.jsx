@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { object as objectType, shape, string } from "prop-types";
 import { attempt } from "../api/Api";
 
-const Signup = ({ data }) => {
+const Input = ({ data }) => {
   const [modelField, setModelField] = useState(data.data[data.fieldname] || "");
   const [error, setError] = useState();
 
@@ -30,7 +30,7 @@ const Signup = ({ data }) => {
     />
   );
 };
-Signup.propTypes = {
+Input.propTypes = {
   data: shape({
     data: objectType.isRequired,
     modelname: string.isRequired,
@@ -39,4 +39,4 @@ Signup.propTypes = {
   }).isRequired
 };
 
-export default Signup;
+export default Input;
