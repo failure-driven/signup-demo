@@ -1,5 +1,5 @@
 json.extract! @user, :username
-if !@user.valid?
+unless @user.valid?
   json.errors do
     json.extract! @errors, :messages
   end
@@ -8,4 +8,3 @@ if !@user.valid?
     json.array! @username_suggestions, :username
   end
 end
-

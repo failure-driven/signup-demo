@@ -16,7 +16,7 @@ RSpec.describe User, type: :model do
           expect(user).to_not be_valid
           expect(
             user.errors.messages
-          ).to eq(username: ["can only have alphanumeric characters"])
+          ).to eq(username: ['can only have alphanumeric characters'])
         end
       end
     end

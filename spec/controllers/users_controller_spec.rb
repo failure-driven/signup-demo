@@ -1,4 +1,4 @@
-require "rails_helper"
+require 'rails_helper'
 
 describe UsersController, type: :controller do
   describe 'GET show' do
@@ -38,7 +38,7 @@ describe UsersController, type: :controller do
       before { allow(user).to receive(:save).and_return(false) }
 
       it 'returns 422' do
-        post :create, params: {user: {name: 'the name', username: 'the username'} }
+        post :create, params: { user: { name: 'the name', username: 'the username' } }
         expect(response.status).to eq(422)
       end
     end
@@ -48,18 +48,18 @@ describe UsersController, type: :controller do
 
       it 'redirects if user saves successfully' do
         expect(user).to receive(:save).and_return(true)
-        post :create, params: {user: {name: 'the name', username: 'the username'} }
+        post :create, params: { user: { name: 'the name', username: 'the username' } }
         expect(response).to be_redirect
         expect(flash.notice).to eq('User was successfully created.')
       end
 
       it 'passes the permitted parameters to user new' do
-        user_params = {user: {name: 'the name', username: 'the username', ignored: 'i am ignored'} }
+        user_params = { user: { name: 'the name', username: 'the username', ignored: 'i am ignored' } }
         permitted_params = ActionController::Parameters.new(
           user_params
         ).permit(:name, :username)
         expect(User).to receive(:new).with(permitted_params).and_return(user)
-        post :create, params: {user: user_params}
+        post :create, params: { user: user_params }
         post :create, params: {
           user: {
             name: 'the name',
