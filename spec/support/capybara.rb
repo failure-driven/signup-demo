@@ -43,7 +43,9 @@ Capybara::Screenshot.prune_strategy = :keep_last_run
 
 RSpec.configure do |config|
   config.after do |example|
-    if (example.metadata[:type] == :feature) && example.metadata[:js] && example.exception.present?
+    if (example.metadata[:type] == :feature) &&
+       example.metadata[:js] &&
+       example.exception.present?
       Capybara::Screenshot.screenshot_and_open_image
     end
   end

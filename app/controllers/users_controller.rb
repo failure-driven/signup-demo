@@ -13,7 +13,8 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
 
     if @user.save
-      redirect_to "/users/#{@user.username}", notice: 'User was successfully created.'
+      redirect_to "/users/#{@user.username}",
+                  notice: 'User was successfully created.'
     else
       render :new, status: 422
     end

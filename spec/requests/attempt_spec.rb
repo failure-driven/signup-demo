@@ -25,13 +25,18 @@ RSpec.describe 'Attempt', type: :request do
         User.create(username: 'user_1')
       end
 
-      it 'responds with errors and susggestions for a username that is taken' do
+      it 'responds with errors and susggestions
+          for a username that is taken' do
         get '/api/attempt?username=user_1',
             headers: {
               'Accept': 'application/json'
             }
         expect(JSON.parse(response.body)).to eq(
-          'errors' => { 'messages' => { 'username' => ['has already been taken'] } },
+          'errors' => {
+            'messages' => {
+              'username' => ['has already been taken']
+            }
+          },
           'username' => 'user_1',
           'username_suggestions' => [
             { 'username' => 'user_11' },

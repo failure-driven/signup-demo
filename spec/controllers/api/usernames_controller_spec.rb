@@ -4,7 +4,9 @@ describe Api::UsernamesController, type: :controller do
   describe 'GET attempt' do
     it 'for unique username' do
       mock_user = double('User', valid?: true, username: 'the username')
-      expect(User).to receive(:new).with(username: nil).and_return(mock_user)
+      expect(
+        User
+      ).to receive(:new).with(username: nil).and_return(mock_user)
       @request.headers['Accept'] = 'application/json'
       get :attempt
       expect(response.status).to eq(200)
@@ -16,7 +18,9 @@ describe Api::UsernamesController, type: :controller do
                          valid?: false,
                          username: 'the username',
                          errors: double('Errors', messages: ['error 1']))
-      expect(User).to receive(:new).with(username: nil).and_return(mock_user)
+      expect(
+        User
+      ).to receive(:new).with(username: nil).and_return(mock_user)
       @request.headers['Accept'] = 'application/json'
       get :attempt
       expect(response.status).to eq(200)

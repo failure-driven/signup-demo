@@ -14,8 +14,9 @@ module Api
       taken_usernames = User.where(
         User.arel_table[:username].matches("#{username}%")
       ).pluck(:username)
-      @username_suggestions = (generated_usernames(username) - taken_usernames)
-                              .map { |suggestion| { username: suggestion } }
+      @username_suggestions = (
+        generated_usernames(username) - taken_usernames
+      ).map { |suggestion| { username: suggestion } }
     end
 
     def generated_usernames(username)

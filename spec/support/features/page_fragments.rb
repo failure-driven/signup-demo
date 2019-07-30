@@ -1,6 +1,7 @@
 module PageFragments
   Page = Struct.new :rspec_example do
-    alias_method :browser, :rspec_example # Capybara DSL + rspec example context
+    # Capybara DSL + rspec example context
+    alias_method :browser, :rspec_example
   end
 
   module DelegateSynchronize

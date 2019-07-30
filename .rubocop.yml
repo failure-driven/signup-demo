@@ -30,7 +30,9 @@ Metrics/BlockLength:
   Enabled: false
 
 Metrics/LineLength:
-  Max: 120
+  Max: 75
+  Exclude:
+    - config/**/*
 
 Style/Documentation:
   Enabled: false
@@ -40,4 +42,3 @@ Style/FrozenStringLiteralComment:
 
 Style/IfUnlessModifier:
   Enabled: false
-

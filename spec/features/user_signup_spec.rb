@@ -62,8 +62,10 @@ feature 'User signup', js: true do
       end
     end
 
-    scenario 'User is shown an error whilst signing up with an existing username' do
-      When 'Michael fills in signs up form with username saramic' do
+    scenario 'User is shown an error
+              whilst signing up with an existing username' do
+      When 'Michael fills in signs up form
+            with username saramic' do
         visit('/')
         fill_in('Name', with: 'Michael Milewski')
         fill_in('Username', with: 'saramic')

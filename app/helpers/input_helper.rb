@@ -1,7 +1,9 @@
 module InputHelper
   def model_data(model, args)
     data_attributes = { data: model.to_json }
-    args.each { |key, value| data_attributes[[:data, key].join('-')] = value.to_json }
+    args.each do |key, value|
+      data_attributes[[:data, key].join('-')] = value.to_json
+    end
     content_tag(
       :div,
       data_attributes
