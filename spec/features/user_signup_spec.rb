@@ -44,14 +44,14 @@ feature 'User signup', js: true do
   # A user with username "developer" exists
   context 'A user with username "developer" exists' do
     before do
-      User.create(username: 'developer')
+      User.create(username: 'saramic')
     end
 
     scenario 'User cannot sign up with an existing username' do
       When "Michael signs up with username 'developer'" do
         visit('/')
         fill_in('Name', with: 'Michael Milewski')
-        fill_in('Username', with: 'developer')
+        fill_in('Username', with: 'saramic')
         click_on('Sign up') # change and new error
       end
 
