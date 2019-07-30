@@ -2,8 +2,12 @@
 
 set -e
 
-# linting, and general pretty code is optional
-if [[ ${PRETTY_CODE} = "true" ]]; then
+# linting, and general pretty code
+if [[ ${PRETTY_CODE} = "false" ]]
+then
+  # DO NOTHING if you choose to opt out of linting
+  echo 'NOT checking for pretty code'
+else
   bundle exec rubocop
   yarn lint
 fi
