@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+set -e
+
+# linting, and general pretty code is optional
+if [[ ${PRETTY_CODE} = "true" ]]; then
+  bundle exec rubocop
+  yarn lint
+fi
+
+RAILS_ENV=test bundle exec rails db:drop db:create db:migrate db:seed
+bundle exec rspec -f documentation
+
+yarn jest
+
