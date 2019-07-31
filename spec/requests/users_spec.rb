@@ -43,4 +43,12 @@ RSpec.describe 'Users', type: :request do
       expect(response).to have_http_status(422)
     end
   end
+
+  describe 'GET /users' do
+    it 'redirects to new' do
+      get '/users'
+      expect(response).to have_http_status(301)
+      expect(response.headers.to_hash['Location']).to eq('http://www.example.com/')
+    end
+  end
 end
