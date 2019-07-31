@@ -11,6 +11,8 @@ const Input = ({ data }) => {
     attempt(event.target.value).then(({ errors }) => {
       if (errors) {
         setError(true);
+      } else {
+        setError();
       }
     });
   };

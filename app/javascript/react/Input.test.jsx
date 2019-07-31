@@ -58,7 +58,7 @@ describe("Input", () => {
       expect(input().prop("value")).toEqual("username");
     });
 
-    it("username attempt errors as username is taken", async () => {
+    it("username attempt errors setting error state", async () => {
       attempt.mockResolvedValue({
         dryrunPassed: false,
         errors: { username: [{ message: "Username is taken" }] }
@@ -70,6 +70,24 @@ describe("Input", () => {
       expect(attempt).toHaveBeenCalledWith("taken-username");
       await attempt();
       expect(input().prop("className")).toEqual("field_with_errors");
+    });
+
+    it("subsequent username attempt does NOT error unsetting error state", async () => {
+      const wrapper = shallow(<Input data={data} />);
+      const input = () => wrapper.find("input");
+
+      attempt.mockResolvedValue({
+        dryrunPassed: false,
+        errors: { username: [{ message: "Username is taken" }] }
+      });
+      input().simulate("change", { target: { value: "taken-username" } });
+      await attempt();
+      expect(input().prop("className")).toEqual("field_with_errors");
+
+      attempt.mockResolvedValue({ dryrunPassed: true });
+      input().simulate("change", { target: { value: "taken-username" } });
+      await attempt();
+      expect(input().prop("className")).toEqual("");
     });
   });
 });
