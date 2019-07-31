@@ -4,19 +4,9 @@ import { attempt } from "../api/Api";
 
 const Input = ({ data }) => {
   const [modelField, setModelField] = useState(data.data[data.fieldname] || "");
-  const [error, setError] = useState();
 
   const updateUsername = event => {
-    event.preventDefault();
     setModelField(event.target.value);
-    attempt(event.target.value).then(result => {
-      const { errors } = result;
-      if (errors) {
-        setError(errors);
-      } else {
-        setError();
-      }
-    });
   };
 
   return (
@@ -26,7 +16,6 @@ const Input = ({ data }) => {
       onChange={updateUsername}
       name={`${data.modelname}[${data.fieldname}]`}
       value={modelField}
-      className={error ? "field_with_errors" : ""}
     />
   );
 };

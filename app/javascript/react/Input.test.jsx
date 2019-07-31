@@ -14,7 +14,6 @@ describe("Input", () => {
     expect(wrapper.find("input").prop("value")).toEqual("the username");
     expect(wrapper).toMatchInlineSnapshot(`
       <input
-        className=""
         name="the model[username]"
         onChange={[Function]}
         placeholder="the placeholder"
@@ -33,5 +32,19 @@ describe("Input", () => {
     };
     const wrapper = shallow(<Input data={data} />);
     expect(wrapper.find("input").prop("value")).toEqual("");
+  });
+
+  it("username is bound to the input field value", () => {
+    const data = {
+      data: { username: null },
+      modelname: "the model",
+      placeholder: "the placeholder",
+      fieldname: "username"
+    };
+    const wrapper = shallow(<Input data={data} />);
+    const input = () => wrapper.find("input");
+    expect(input().prop("value")).toEqual("");
+    input().simulate("change", { target: { value: "username" } });
+    expect(input().prop("value")).toEqual("username");
   });
 });
