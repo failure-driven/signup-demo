@@ -10,16 +10,20 @@ feature 'User signup', js: true do
     end
 
     Then 'her profile is shown' do
-      # TODO: change for H1 to be my profile
-      # TODO Welcome handle
       wait_for { page.current_path }.to eq '/users/selenawiththetattoo'
+      wait_for { page.find('h1') }.to have_text('Your Profile')
+      wait_for do
+        p_strong_tags(page)
+      end.to eq(
+        'Name:' => 'Selena Small',
+        'Username:' => 'selenawiththetattoo'
+      )
     end
   end
 
-  #  User cannot sign up with an invalid username
   scenario 'User cannot sign up with an invalid username' do
     When 'Michael signs up with an invalid username' do
-      visit('/')
+      visit root_path
       fill_in('Name', with: 'Michael Milewski')
       fill_in('Username', with: '50/50')
     end
@@ -41,7 +45,6 @@ feature 'User signup', js: true do
     end
   end
 
-  # A user with username "developer" exists
   context 'A user with username "developer" exists' do
     before do
       User.create(username: 'saramic')
@@ -49,10 +52,10 @@ feature 'User signup', js: true do
 
     scenario 'User cannot sign up with an existing username' do
       When "Michael signs up with username 'developer'" do
-        visit('/')
+        visit root_path
         fill_in('Name', with: 'Michael Milewski')
         fill_in('Username', with: 'saramic')
-        click_on('Sign up') # change and new error
+        click_on('Sign up')
       end
 
       Then 'an error is shown' do
@@ -66,7 +69,7 @@ feature 'User signup', js: true do
               whilst signing up with an existing username' do
       When 'Michael fills in signs up form
             with username saramic' do
-        visit('/')
+        visit root_path
         fill_in('Name', with: 'Michael Milewski')
         fill_in('Username', with: 'saramic')
       end
@@ -78,4 +81,16 @@ feature 'User signup', js: true do
       end
     end
   end
+end
+
+def p_strong_tags(page)
+  page
+    .find_all('p strong')
+    .map do |p_element|
+      strong_text = p_element.text
+      [
+        strong_text,
+        p_element.find(:xpath, '..').text.sub(strong_text, '').strip
+      ]
+    end.to_h
 end
