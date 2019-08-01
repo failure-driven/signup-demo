@@ -69,7 +69,7 @@ describe("Input", () => {
       expect(attempt).toHaveBeenCalledTimes(1);
       expect(attempt).toHaveBeenCalledWith("taken-username");
       await attempt();
-      expect(input().prop("className")).toEqual("field_with_errors");
+      expect(input().prop("className")).toEqual("is-invalid");
     });
 
     it("subsequent username attempt does NOT error unsetting error state", async () => {
@@ -82,7 +82,7 @@ describe("Input", () => {
       });
       input().simulate("change", { target: { value: "taken-username" } });
       await attempt();
-      expect(input().prop("className")).toEqual("field_with_errors");
+      expect(input().prop("className")).toEqual("is-invalid");
 
       attempt.mockResolvedValue({ dryrunPassed: true });
       input().simulate("change", { target: { value: "taken-username" } });

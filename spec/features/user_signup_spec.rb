@@ -31,7 +31,7 @@ feature 'User signup', js: true do
     Then 'username is highlighted due to error' do
       wait_for do
         page.find('input[name="user[username]"]')[:class]
-      end.to include('field_with_errors')
+      end.to include('is-invalid')
     end
 
     When 'the user clicks signup anyway' do
@@ -52,7 +52,7 @@ feature 'User signup', js: true do
       wait_for { page.current_path }.to eq '/'
       wait_for do
         label_input_tags(page)
-      end.to eq(
+      end.to include(
         'Name' => '',
         'Username' => ''
       )
@@ -91,7 +91,7 @@ feature 'User signup', js: true do
       Then 'username is highlighted due to error' do
         wait_for do
           page.find('input[name="user[username]"]')[:class]
-        end.to include('field_with_errors')
+        end.to include('is-invalid')
       end
     end
   end
@@ -112,7 +112,7 @@ end
 def label_input_tags(page)
   page.document.synchronize do
     page
-      .find_all('div[class="field"]')
+      .find_all('div[class="form-group"]')
       .map do |element|
       [
         find_field_in_element(element, 'label', :text),

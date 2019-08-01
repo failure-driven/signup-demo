@@ -6,6 +6,10 @@ const Input = ({ data }) => {
   const [modelField, setModelField] = useState(data.data[data.fieldname] || "");
   const [error, setError] = useState();
 
+  const joinClasses = classes => {
+    return classes.filter(className => className != null).join(" ");
+  };
+
   const updateUsername = event => {
     setModelField(event.target.value);
     attempt(event.target.value).then(({ errors }) => {
@@ -24,7 +28,7 @@ const Input = ({ data }) => {
       onChange={updateUsername}
       name={`${data.modelname}[${data.fieldname}]`}
       value={modelField}
-      className={error ? "field_with_errors" : ""}
+      className={joinClasses([data.class, error && "is-invalid"])}
     />
   );
 };
@@ -33,7 +37,8 @@ Input.propTypes = {
     data: objectType.isRequired,
     modelname: string.isRequired,
     placeholder: string.isRequired,
-    fieldname: string.isRequired
+    fieldname: string.isRequired,
+    class: string
   }).isRequired
 };
 

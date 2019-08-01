@@ -11,17 +11,23 @@
     </div>
   <% end %>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :name %>
-    <%= form.text_field :name, placeholder: "Full Name" %>
+    <%= form.text_field :name,
+      placeholder: "Full Name",
+      class: "form-control form-control-lg" %>
   </div>
 
-  <div class="field">
+  <div class="form-group">
     <%= form.label :username %>
-    <%= react_input_field_for @user, modelname: 'user', fieldname: 'username', placeholder: 'Username' %>
+    <%= react_input_field_for @user,
+      modelname: 'user',
+      fieldname: 'username',
+      placeholder: 'Username',
+      class: "form-control form-control-lg"%>
   </div>
 
-  <div class="actions">
-    <%= form.submit "Sign up" %>
+  <div class="form-group">
+    <%= form.submit "Sign up", class: "btn btn-primary btn-block btn-lg" %>
   </div>
 <% end %>
