@@ -43,6 +43,14 @@ feature 'User signup', js: true do
         page.find('#error_explanation').find_all('li').map(&:text)
       end.to eq(['Username can only have alphanumeric characters'])
     end
+
+    When 'the user clicks home' do
+      click_on('Home')
+    end
+
+    Then 'they are taken to the home url' do
+      wait_for { page.current_path }.to eq '/'
+    end
   end
 
   context 'A user with username "developer" exists' do
