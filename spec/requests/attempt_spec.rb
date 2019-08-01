@@ -20,12 +20,23 @@ RSpec.describe 'Attempt', type: :request do
       )
     end
 
+    it 'responds with no error for a blank username' do
+      get '/api/attempt?username=',
+          headers: {
+            'Accept': 'application/json'
+          }
+      expect(response).to have_http_status(200)
+      expect(JSON.parse(response.body)).to eq(
+        'username' => ''
+      )
+    end
+
     context 'user_1 exists' do
       before do
         User.create(username: 'user_1')
       end
 
-      it 'responds with errors and susggestions
+      it 'responds with errors and suggestions
           for a username that is taken' do
         get '/api/attempt?username=user_1',
             headers: {

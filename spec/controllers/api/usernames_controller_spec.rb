@@ -6,11 +6,20 @@ describe Api::UsernamesController, type: :controller do
       mock_user = double('User', valid?: true, username: 'the username')
       expect(
         User
-      ).to receive(:new).with(username: nil).and_return(mock_user)
+      ).to receive(:new)
+        .with(username: 'the username')
+        .and_return(mock_user)
       @request.headers['Accept'] = 'application/json'
-      get :attempt
+      get :attempt, params: { username: 'the username' }
       expect(response.status).to eq(200)
       expect(response.body).to eq('{"username":"the username"}')
+    end
+
+    it 'for a blank username' do
+      @request.headers['Accept'] = 'application/json'
+      get :attempt, params: { username: '' }
+      expect(response.status).to eq(200)
+      expect(response.body).to eq('{"username":""}')
     end
 
     it 'for NOT unique username' do

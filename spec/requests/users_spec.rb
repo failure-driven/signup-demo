@@ -10,7 +10,7 @@ RSpec.describe 'Users', type: :request do
 
   describe 'GET /users/:username' do
     it 'returns unprocessable for a username not found' do
-      get '/users/non-existant-username'
+      get '/users/non-existent-username'
       expect(response).to have_http_status(422)
     end
 

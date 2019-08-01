@@ -2,8 +2,10 @@ module Api
   class UsernamesController < ApiController
     def attempt
       @user = User.new(username: params[:username])
+      return if params[:username] == ''
       return if @user.valid?
 
+      @not_valid = true
       @errors = @user.errors
       @username_suggestions = suggested_usernames(params[:username])
     end

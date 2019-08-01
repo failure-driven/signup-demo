@@ -1,5 +1,5 @@
 json.extract! @user, :username
-unless @user.valid?
+if @not_valid
   json.errors do
     json.extract! @errors, :messages
   end
