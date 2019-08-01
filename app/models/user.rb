@@ -1,5 +1,6 @@
 class User < ApplicationRecord
   validate :validate_username
+  validates :email, uniqueness: true
   validates :username, uniqueness: true
 
   private

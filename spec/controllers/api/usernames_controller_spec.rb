@@ -23,10 +23,11 @@ describe Api::UsernamesController, type: :controller do
     end
 
     it 'for NOT unique username' do
+      mock_errors = double('Errors', messages: { username: ['error 1'] })
       mock_user = double('User',
                          valid?: false,
                          username: 'the username',
-                         errors: double('Errors', messages: ['error 1']))
+                         errors: mock_errors)
       expect(
         User
       ).to receive(:new).with(username: nil).and_return(mock_user)
@@ -35,7 +36,7 @@ describe Api::UsernamesController, type: :controller do
       expect(response.status).to eq(200)
       expect(response.body).to eq(
         '{"username":"the username",' \
-        '"errors":{"messages":["error 1"]},' \
+        '"errors":{"messages":{"username":["error 1"]}},' \
         '"username_suggestions":[' \
           '{"username":"1"},{"username":"2"},{"username":"3"},' \
           '{"username":"4"},{"username":"5"},{"username":"6"},' \

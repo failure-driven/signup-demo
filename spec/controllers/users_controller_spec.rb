@@ -13,7 +13,7 @@ describe UsersController, type: :controller do
     end
 
     it 'returns success' do
-      get :show, params: { username: 'hi' }
+      get :show, params: { email: 'email@example.com', username: 'hi' }
       expect(response.status).to eq(200)
     end
 
@@ -42,7 +42,9 @@ describe UsersController, type: :controller do
       it 'returns 422' do
         post :create, params: {
           user: {
-            name: 'the name', username: 'the username'
+            email: 'email@example.com',
+            name: 'the name',
+            username: 'the username'
           }
         }
         expect(response.status).to eq(422)
@@ -56,7 +58,9 @@ describe UsersController, type: :controller do
         expect(user).to receive(:save).and_return(true)
         post :create, params: {
           user: {
-            name: 'the name', username: 'the username'
+            email: 'email@example.com',
+            name: 'the name',
+            username: 'the username'
           }
         }
         expect(response).to be_redirect
@@ -66,6 +70,7 @@ describe UsersController, type: :controller do
       it 'passes the permitted parameters to user new' do
         user_params = {
           user: {
+            email: 'email@example.com',
             name: 'the name',
             username: 'the username',
             ignored: 'i am ignored'
@@ -73,13 +78,14 @@ describe UsersController, type: :controller do
         }
         permitted_params = ActionController::Parameters.new(
           user_params
-        ).permit(:name, :username)
+        ).permit(:email, :name, :username)
         expect(
           User
         ).to receive(:new).with(permitted_params).and_return(user)
         post :create, params: { user: user_params }
         post :create, params: {
           user: {
+            email: 'email@example.com',
             name: 'the name',
             username: 'the username',
             ignored: 'i am ignored'

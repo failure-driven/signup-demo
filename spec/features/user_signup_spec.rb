@@ -4,7 +4,7 @@ feature 'User signup', js: true do
   scenario 'User signs up successfully' do
     When 'Selena signs up with a valid username' do
       visit root_path
-      fill_in('Name', with: 'Selena Small')
+      fill_in('Email', with: 'selenawiththetattoo@gmail.com')
       fill_in('Username', with: 'selenawiththetattoo')
       click_on('Sign up')
     end
@@ -15,7 +15,7 @@ feature 'User signup', js: true do
       wait_for do
         p_strong_tags(page)
       end.to eq(
-        'Name:' => 'Selena Small',
+        'Email:' => 'selenawiththetattoo@gmail.com',
         'Username:' => 'selenawiththetattoo'
       )
     end
@@ -24,7 +24,7 @@ feature 'User signup', js: true do
   scenario 'User cannot sign up with an invalid username' do
     When 'Michael signs up with an invalid username' do
       visit root_path
-      fill_in('Name', with: 'Michael Milewski')
+      fill_in('Email', with: 'saramic@gmail.com')
       fill_in('Username', with: '50/50')
     end
 
@@ -53,7 +53,7 @@ feature 'User signup', js: true do
       wait_for do
         label_input_tags(page)
       end.to include(
-        'Name' => '',
+        'Email' => '',
         'Username' => ''
       )
     end
@@ -61,13 +61,13 @@ feature 'User signup', js: true do
 
   context 'A user with username "developer" exists' do
     before do
-      User.create(username: 'developer')
+      User.create(email: 'email@example.com', username: 'developer')
     end
 
     scenario 'User cannot sign up with an existing username' do
       When "Michael signs up with username 'developer'" do
         visit root_path
-        fill_in('Name', with: 'Michael Milewski')
+        fill_in('Email', with: 'saramic@gmail.com')
         fill_in('Username', with: 'developer')
         click_on('Sign up')
       end
@@ -84,7 +84,7 @@ feature 'User signup', js: true do
       When 'Michael fills in sign up form
             with username developer' do
         visit root_path
-        fill_in('Name', with: 'Michael Milewski')
+        fill_in('Email', with: 'saramic@gmail.com')
         fill_in('Username', with: 'developer')
       end
 
@@ -92,6 +92,21 @@ feature 'User signup', js: true do
         wait_for do
           page.find('input[name="user[username]"]')[:class]
         end.to include('is-invalid')
+      end
+    end
+
+    scenario 'User needs a uniq email' do
+      When "Michael signs up with username 'developer'" do
+        visit root_path
+        fill_in('Email', with: 'email@example.com')
+        fill_in('Username', with: 'some-username')
+        click_on('Sign up')
+      end
+
+      Then 'an error is shown' do
+        wait_for do
+          page.find('#error_explanation').find_all('li').map(&:text)
+        end.to eq(['Email has already been taken'])
       end
     end
   end

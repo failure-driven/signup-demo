@@ -16,7 +16,7 @@ RSpec.describe 'Users', type: :request do
 
     context 'my-username exists' do
       before do
-        User.create(username: 'my-username')
+        User.create(email: 'email@example.com', username: 'my-username')
       end
 
       it 'returns success for fetching an existing user' do
@@ -28,7 +28,11 @@ RSpec.describe 'Users', type: :request do
 
   describe 'POST /users' do
     it 'redirects on successful create' do
-      post '/users', params: { user: { username: 'valid-username' } }
+      post '/users', params: {
+        user: {
+          email: 'email@example.com', username: 'valid-username'
+        }
+      }
       expect(response).to have_http_status(302)
       expect(response.headers.to_hash['Location']).to eq('http://www.example.com/users/valid-username')
     end
