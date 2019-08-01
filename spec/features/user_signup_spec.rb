@@ -47,14 +47,14 @@ feature 'User signup', js: true do
 
   context 'A user with username "developer" exists' do
     before do
-      User.create(username: 'saramic')
+      User.create(username: 'developer')
     end
 
     scenario 'User cannot sign up with an existing username' do
       When "Michael signs up with username 'developer'" do
         visit root_path
         fill_in('Name', with: 'Michael Milewski')
-        fill_in('Username', with: 'saramic')
+        fill_in('Username', with: 'developer')
         click_on('Sign up')
       end
 
@@ -67,11 +67,11 @@ feature 'User signup', js: true do
 
     scenario 'User is shown an error
               whilst signing up with an existing username' do
-      When 'Michael fills in signs up form
-            with username saramic' do
+      When 'Michael fills in sign up form
+            with username developer' do
         visit root_path
         fill_in('Name', with: 'Michael Milewski')
-        fill_in('Username', with: 'saramic')
+        fill_in('Username', with: 'developer')
       end
 
       Then 'username is highlighted due to error' do
