@@ -48,8 +48,14 @@ feature 'User signup', js: true do
       click_on('Home')
     end
 
-    Then 'they are taken to the home url' do
+    Then 'they are taken to the home url with empty fields' do
       wait_for { page.current_path }.to eq '/'
+      wait_for do
+        label_input_tags(page)
+      end.to eq(
+        'Name' => '',
+        'Username' => 'NO-INPUT-FOUND'
+      )
     end
   end
 
@@ -101,4 +107,23 @@ def p_strong_tags(page)
         p_element.find(:xpath, '..').text.sub(strong_text, '').strip
       ]
     end.to_h
+end
+
+def label_input_tags(page)
+  page.document.synchronize do
+    page
+      .find_all('div[class="field"]')
+      .map do |element|
+      [
+        find_field_in_element(element, 'label', :text),
+        find_field_in_element(element, 'input', :value)
+      ]
+    end.to_h
+  end
+end
+
+def find_field_in_element(element, field_name, value)
+  element.find(field_name).send(value)
+rescue StandardError
+  "NO-#{field_name.upcase}-FOUND"
 end
