@@ -11,7 +11,7 @@
   </head>
 
   <body>
-    <nav><%= link_to 'Home', root_path %></nav>
+    <nav><%= link_to 'Home', root_path, 'data-turbolinks' => false %></nav>
     <%= yield %>
   </body>
 </html>
