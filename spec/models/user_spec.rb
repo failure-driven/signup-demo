@@ -9,14 +9,14 @@ RSpec.describe User, type: :model do
           (0..9).to_a, '_', '-'
       ].join
       # "abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ_-"
-      user = User.new(username: username_all_valid_chars)
+      user = User.new(username: username_all_valid_chars, password: 'password', email: 'email@example.com')
       expect(user).to be_valid
     end
 
     context 'not valid' do
       " \t?|;.,/".chars.each do |character|
         it "is not valid with '#{character}' character" do
-          user = User.new(username: "with-#{character}-character")
+          user = User.new(username: "with-#{character}-character", password: 'password', email: 'email@example.com')
           expect(user).to_not be_valid
           expect(
             user.errors.messages

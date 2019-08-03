@@ -7,6 +7,8 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+require 'devise'
+
 Dir['spec/support/**/*.rb'].each do |file|
   require Rails.root.join(file).to_s
 end
@@ -76,4 +78,6 @@ RSpec.configure do |config|
 
   # render views for controller specs to render jbuilder templates
   config.render_views = true
+
+  config.include Devise::Test::ControllerHelpers, :type => :controller
 end

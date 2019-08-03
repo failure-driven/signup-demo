@@ -1,6 +1,53 @@
 $fa-font-path: "~@fortawesome/fontawesome-free/webfonts";
 @import "~@fortawesome/fontawesome-free/scss/fontawesome";
+@import "~@fortawesome/fontawesome-free/scss/regular";
+@import "~@fortawesome/fontawesome-free/scss/solid";
 @import "~@fortawesome/fontawesome-free/scss/v4-shims";
 @import "~@fortawesome/fontawesome-free/scss/brands";
 
 @import "~bootstrap/scss/bootstrap.scss";
+
+.divider-text {
+  position: relative;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.divider-text span {
+  padding: 7px;
+  font-size: 12px;
+  position: relative;
+  z-index: 2;
+}
+.divider-text:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  border-bottom: 1px solid #ddd;
+  top: 55%;
+  left: 0;
+  z-index: 1;
+}
+
+.btn-twitter {
+  background-color: #42aeec;
+  color: #fff;
+}
+a.btn-facebook {
+  background-color: #405d9d;
+  color: #fff;
+  &:visited {
+    color: #fff;
+  }
+}
+.btn-github {
+  background-color: #333;
+  color: #fff;
+  &:hover {
+    color: hsla(0,0%,100%,.7);
+  }
+}
+.btn-linkedin {
+  background-color: #0077B5;
+  color: #fff;
+}

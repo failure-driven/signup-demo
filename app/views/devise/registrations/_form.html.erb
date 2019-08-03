@@ -11,11 +11,23 @@
     </div>
   <% end %>
 
+  <%- if devise_mapping.omniauthable? %>
+    <%- resource_class.omniauth_providers.each do |provider| %>
+      <%= link_to(omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-lg btn-#{provider}") do %>
+        <i class="fa fa-<%= provider %>-official"></i> <%= OmniAuth::Utils.camelize(provider) %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+  <p class="divider-text">
+    <span class="bg-light">OR</span>
+  </p>
+
   <div class="form-group">
     <%= form.label :email %>
-    <%= form.text_field :email,
+    <%= form.email_field :email,
       placeholder: "Email",
-      type: "email",
+      autocomplete: 'email',
       class: "form-control form-control-lg" %>
   </div>
 
@@ -25,7 +37,13 @@
       modelname: 'user',
       fieldname: 'username',
       placeholder: 'Username',
+      autocomplete: 'username',
       class: "form-control form-control-lg"%>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :password %><br />
+    <%= form.password_field :password, autocomplete: "current-password", class: "form-control form-control-lg" %>
   </div>
 
   <div class="form-group">
