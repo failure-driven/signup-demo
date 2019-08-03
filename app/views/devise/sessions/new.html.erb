@@ -2,13 +2,7 @@
   <article class="card-body mx-auto" style="width: 400px; max-width: 600px;">
     <h4 class="card-title mt-3 text-center">Sign in</h4>
 
-    <%- if devise_mapping.omniauthable? %>
-      <%- resource_class.omniauth_providers.each do |provider| %>
-        <%= link_to(omniauth_authorize_path(resource_name, provider), class: "btn btn-block btn-lg btn-#{provider}") do %>
-          <i class="fa fa-<%= provider %>-official"></i> <%= OmniAuth::Utils.camelize(provider) %>
-        <% end %>
-      <% end %>
-    <% end %>
+    <%= render "devise/shared/omniauth" %>
 
     <p class="divider-text">
       <span class="bg-light">OR</span>
