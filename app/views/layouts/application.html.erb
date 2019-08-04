@@ -12,6 +12,7 @@
 
   <body>
     <nav><%= link_to 'Home', root_path, 'data-turbolinks' => false %></nav>
+    <%= render 'layouts/flashes' %>
     <%= yield %>
   </body>
 </html>

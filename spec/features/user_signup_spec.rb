@@ -11,13 +11,17 @@ feature 'User signup', js: true do
 
     Then 'her profile is shown' do
       wait_for { page.current_path }.to eq '/users/selenawiththetattoo'
-      wait_for { page.find('h1') }.to have_text('Your Profile')
+      wait_for do
+        page.find('#flash_messages')
+      end.to have_text('User was successfully created.')
+      wait_for { page.find('h4') }.to have_text('Your Profile')
       wait_for do
         p_strong_tags(page)
       end.to eq(
         'Email:' => 'selenawiththetattoo@gmail.com',
         'Username:' => 'selenawiththetattoo'
       )
+      wait_for { page.find('a.btn') }.to have_text('Start App')
     end
   end
 
