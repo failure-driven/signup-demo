@@ -24,6 +24,96 @@ feature 'User signup', js: true do
       wait_for { page.find('a.btn') }.to have_text('Start App')
     end
   end
+
+  scenario 'User cannot sign up with an invalid username' do
+    When 'Michael signs up with an invalid username' do
+      visit root_path
+      fill_in('Email', with: 'saramic@gmail.com')
+      fill_in('Username', with: '50/50')
+    end
+
+    Then 'username is highlighted due to error' do
+      wait_for do
+        page.find('input[name="user[username]"]')[:class]
+      end.to include('is-invalid')
+    end
+
+    When 'the user clicks signup anyway' do
+      click_on('Sign up')
+    end
+
+    Then 'an error is shown' do
+      wait_for do
+        page.find('#error_explanation').find_all('li').map(&:text)
+      end.to eq(['Username can only have alphanumeric characters'])
+    end
+
+    When 'the user clicks home' do
+      click_on('Home')
+    end
+
+    Then 'they are taken to the home url with empty fields' do
+      wait_for { page.current_path }.to eq '/'
+      wait_for do
+        label_input_tags(page)
+      end.to include(
+        'Email' => '',
+        'Username' => ''
+      )
+    end
+  end
+
+  context 'A user with username "developer" exists' do
+    before do
+      User.create(email: 'email@example.com', username: 'developer')
+    end
+
+    scenario 'User cannot sign up with an existing username' do
+      When "Michael signs up with username 'developer'" do
+        visit root_path
+        fill_in('Email', with: 'saramic@gmail.com')
+        fill_in('Username', with: 'developer')
+        click_on('Sign up')
+      end
+
+      Then 'an error is shown' do
+        wait_for do
+          page.find('#error_explanation').find_all('li').map(&:text)
+        end.to eq(['Username has already been taken'])
+      end
+    end
+
+    scenario 'User is shown an error
+              whilst signing up with an existing username' do
+      When 'Michael fills in sign up form
+            with username developer' do
+        visit root_path
+        fill_in('Email', with: 'saramic@gmail.com')
+        fill_in('Username', with: 'developer')
+      end
+
+      Then 'username is highlighted due to error' do
+        wait_for do
+          page.find('input[name="user[username]"]')[:class]
+        end.to include('is-invalid')
+      end
+    end
+
+    scenario 'User needs a uniq email' do
+      When "Michael signs up with username 'developer'" do
+        visit root_path
+        fill_in('Email', with: 'email@example.com')
+        fill_in('Username', with: 'some-username')
+        click_on('Sign up')
+      end
+
+      Then 'an error is shown' do
+        wait_for do
+          page.find('#error_explanation').find_all('li').map(&:text)
+        end.to eq(['Email has already been taken'])
+      end
+    end
+  end
 end
 
 def p_strong_tags(page)

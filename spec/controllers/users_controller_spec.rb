@@ -40,7 +40,16 @@ describe UsersController, type: :controller do
       before { allow(user).to receive(:save).and_return(true) }
 
       it 'redirects if user saves successfully' do
-        # TODO
+        expect(user).to receive(:save).and_return(true)
+        post :create, params: {
+            user: {
+                email: 'email@example.com',
+                name: 'the name',
+                username: 'the username'
+            }
+        }
+        expect(response).to be_redirect
+        expect(flash.notice).to eq('User was successfully created.')
       end
 
       it 'passes the permitted parameters to user new' do
@@ -86,14 +95,3 @@ describe UsersController, type: :controller do
     end
   end
 end
-
-# expect(user).to receive(:save).and_return(true)
-# post :create, params: {
-#     user: {
-#         email: 'email@example.com',
-#         name: 'the name',
-#         username: 'the username'
-#     }
-# }
-# expect(response).to be_redirect
-# expect(flash.notice).to eq('User was successfully created.')
