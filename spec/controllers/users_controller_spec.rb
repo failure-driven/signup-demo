@@ -36,35 +36,11 @@ describe UsersController, type: :controller do
     let(:user) { mock_model(User) }
     before { allow(User).to receive(:new).and_return(user) }
 
-    context 'fails to saves' do
-      before { allow(user).to receive(:save).and_return(false) }
-
-      it 'returns 422' do
-        post :create, params: {
-          user: {
-            email: 'email@example.com',
-            name: 'the name',
-            username: 'the username'
-          }
-        }
-        expect(response.status).to eq(422)
-      end
-    end
-
     context 'successfully saves' do
       before { allow(user).to receive(:save).and_return(true) }
 
       it 'redirects if user saves successfully' do
-        expect(user).to receive(:save).and_return(true)
-        post :create, params: {
-          user: {
-            email: 'email@example.com',
-            name: 'the name',
-            username: 'the username'
-          }
-        }
-        expect(response).to be_redirect
-        expect(flash.notice).to eq('User was successfully created.')
+        # TODO
       end
 
       it 'passes the permitted parameters to user new' do
@@ -93,5 +69,31 @@ describe UsersController, type: :controller do
         }
       end
     end
+
+    context 'fails to saves' do
+      before { allow(user).to receive(:save).and_return(false) }
+
+      it 'returns 422' do
+        post :create, params: {
+          user: {
+            email: 'email@example.com',
+            name: 'the name',
+            username: 'the username'
+          }
+        }
+        expect(response.status).to eq(422)
+      end
+    end
   end
 end
+
+# expect(user).to receive(:save).and_return(true)
+# post :create, params: {
+#     user: {
+#         email: 'email@example.com',
+#         name: 'the name',
+#         username: 'the username'
+#     }
+# }
+# expect(response).to be_redirect
+# expect(flash.notice).to eq('User was successfully created.')

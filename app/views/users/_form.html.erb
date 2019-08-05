@@ -13,19 +13,16 @@
 
   <div class="form-group">
     <%= form.label :email %>
-    <%= form.text_field :email,
+    <%= form.email_field :email,
       placeholder: "Email",
-      type: "email",
       class: "form-control form-control-lg" %>
   </div>
 
   <div class="form-group">
     <%= form.label :username %>
-    <%= react_input_field_for @user,
-      modelname: 'user',
-      fieldname: 'username',
-      placeholder: 'Username',
-      class: "form-control form-control-lg"%>
+    <%= form.text_field :username,
+      placeholder: "Username",
+      class: "form-control form-control-lg" %>
   </div>
 
   <div class="form-group">

@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Input from "../react/Input";
+// import Input from "../react/Input";
+const Input = () => <input />;
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentScript = (() => {
