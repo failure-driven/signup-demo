@@ -5,8 +5,8 @@ module PageFragments
         @node = node
       end
 
-      def invalid?
-        @node[:class][/is-invalid/]
+      def class
+        @node[:class]
       end
     end
 
