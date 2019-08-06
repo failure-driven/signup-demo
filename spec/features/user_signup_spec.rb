@@ -32,8 +32,8 @@ feature 'User signup', js: true do
 
     Then 'username is highlighted due to error' do
       wait_for do
-        focus_on(:form).input_for('user[username]')
-      end.to be_invalid
+        focus_on(:form).input_for('user[username]').class
+      end.to include('is-invalid')
     end
 
     When 'the user clicks signup anyway' do
@@ -95,8 +95,8 @@ feature 'User signup', js: true do
 
       Then 'username is highlighted due to error' do
         wait_for do
-          focus_on(:form).input_for('user[username]')
-        end.to be_invalid
+          focus_on(:form).input_for('user[username]').class
+        end.to include('is-invalid')
       end
     end
 

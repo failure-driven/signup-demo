@@ -1,15 +1,12 @@
 module PageFragments
   module Form
     class Input
-      def initialize(node, input_name)
+      def initialize(node)
         @node = node
-        @input_name = input_name
       end
 
-      def invalid?
-        @node[:class][/is-invalid/] ||
-          raise("could not find 'is-invalid' in '#{@node[:class]}'" \
-                    "for input '#{@input_name}'")
+      def class
+        @node[:class]
       end
     end
 
@@ -18,8 +15,7 @@ module PageFragments
     end
 
     def input_for(input_name)
-      node = browser.find(%(input[name="#{input_name}"]))
-      Input.new(node, input_name)
+      Input.new(browser.find(%(input[name="#{input_name}"])))
     end
 
     def submit
