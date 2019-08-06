@@ -38,7 +38,6 @@ RSpec.describe 'Users', type: :request do
       #   response.headers.to_hash['Location']
       # ).to match('/users/valid-username')
     end
-
   end
 
   describe 'GET /users' do
