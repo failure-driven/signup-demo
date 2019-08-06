@@ -29,9 +29,9 @@ RSpec.describe 'Users', type: :request do
   describe 'POST /users' do
     it 'redirects on successful create' do
       post '/users', params: {
-          user: {
-              email: 'email@example.com', username: 'valid-username'
-          }
+        user: {
+          email: 'email@example.com', username: 'valid-username'
+        }
       }
       expect(response).to have_http_status(302)
       expect(
