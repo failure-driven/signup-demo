@@ -34,7 +34,9 @@ RSpec.describe 'Users', type: :request do
         }
       }
       expect(response).to have_http_status(302)
-      expect(response.headers.to_hash['Location']).to eq('http://www.example.com/users/valid-username')
+      expect(
+        response.headers.to_hash
+      ).to include('Location' => match('/users/valid-username'))
     end
 
     it 'returns unprocessable with invalid username blank' do
@@ -52,7 +54,9 @@ RSpec.describe 'Users', type: :request do
     it 'redirects to new' do
       get '/users'
       expect(response).to have_http_status(301)
-      expect(response.headers.to_hash['Location']).to eq('http://www.example.com/')
+      expect(
+        response.headers.to_hash
+      ).to include('Location' => 'http://www.example.com/')
     end
   end
 end
