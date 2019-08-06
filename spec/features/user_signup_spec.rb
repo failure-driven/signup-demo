@@ -4,23 +4,19 @@ feature 'User signup', js: true do
   scenario 'User signs up successfully' do
     When 'Selena signs up with a valid username' do
       visit root_path
-      fill_in('Email', with: 'selenawiththetattoo@gmail.com')
-      fill_in('Username', with: 'selenawiththetattoo')
-      click_on('Sign up')
+      signup_with(
+          email:    'selenawiththetattoo@gmail.com',
+          username: 'selenawiththetattoo'
+      )
     end
 
-    Then 'her profile is shown' do
-      wait_for { page.current_path }.to eq '/users/selenawiththetattoo'
+    Then 'she is signed in' do
       wait_for do
         page.find('#flash_messages')
       end.to have_text('User was successfully created.')
+
       wait_for { page.find('h4') }.to have_text('Your Profile')
-      wait_for do
-        p_strong_tags(page)
-      end.to eq(
-        'Email:' => 'selenawiththetattoo@gmail.com',
-        'Username:' => 'selenawiththetattoo'
-      )
+
       wait_for { page.find('a.btn') }.to have_text('Start App')
     end
   end
@@ -114,6 +110,11 @@ feature 'User signup', js: true do
       end
     end
   end
+end
+
+def signup_with(args)
+  args.each{|(label,value)| fill_in(label.capitalize, with: value) }
+  click_on('Sign up')
 end
 
 def p_strong_tags(page)
