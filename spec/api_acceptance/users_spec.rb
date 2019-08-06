@@ -31,12 +31,14 @@ RSpec.describe 'Users', type: :request do
       # TODO
 
       # post '/users', params: {
-      #     user: { email: 'email@example.com', username: 'valid-username'}
+      #   user: {
+      #     email: 'email@example.com', username: 'valid-username'
+      #   }
       # }
       # expect(response).to have_http_status(302)
       # expect(
-      #   response.headers.to_hash['Location']
-      # ).to match('/users/valid-username')
+      #   response.headers.to_hash
+      # ).to include('Location' => match('/users/valid-username'))
     end
   end
 
@@ -44,7 +46,9 @@ RSpec.describe 'Users', type: :request do
     it 'redirects to new' do
       get '/users'
       expect(response).to have_http_status(301)
-      expect(response.headers.to_hash['Location']).to eq('http://www.example.com/')
+      expect(
+        response.headers.to_hash
+      ).to include('Location' => 'http://www.example.com/')
     end
   end
 end
