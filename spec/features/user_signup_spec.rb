@@ -25,35 +25,35 @@ feature 'User signup', js: true do
     When 'Michael signs up with an invalid username' do
       visit root_path
       focus_on(:signup).fill_in_with(
-          email: 'saramic@gmail.com',
-          username: '50/50'
+        email: 'saramic@gmail.com',
+        username: '50/50'
       )
     end
 
     Then 'username is highlighted due to error' do
       wait_for do
-        page.find('input[name="user[username]"]')[:class]
-      end.to include('is-invalid')
+        focus_on(:form).input_for('user[username]')
+      end.to be_invalid
     end
 
     When 'the user clicks signup anyway' do
-      click_on('Sign up')
+      focus_on(:form).submit
     end
 
     Then 'an error is shown' do
       wait_for do
-        page.find('#error_explanation').find_all('li').map(&:text)
+        focus_on(:form).error_message
       end.to eq(['Username can only have alphanumeric characters'])
     end
 
     When 'the user clicks home' do
-      click_on('Home')
+      focus_on(:nav).go('Home')
     end
 
     Then 'they are taken to the home url with empty fields' do
       wait_for { page.current_path }.to eq '/'
       wait_for do
-        label_input_tags(page)
+        focus_on(:form).inputs
       end.to include(
         'Email' => '',
         'Username' => ''
@@ -70,14 +70,14 @@ feature 'User signup', js: true do
       When "Michael signs up with username 'developer'" do
         visit root_path
         focus_on(:signup).submit_with(
-            email: 'saramic@gmail.com',
-            username: 'developer'
+          email: 'saramic@gmail.com',
+          username: 'developer'
         )
       end
 
       Then 'an error is shown' do
         wait_for do
-          page.find('#error_explanation').find_all('li').map(&:text)
+          focus_on(:form).error_message
         end.to eq(['Username has already been taken'])
       end
     end
@@ -88,15 +88,15 @@ feature 'User signup', js: true do
             with username developer' do
         visit root_path
         focus_on(:signup).fill_in_with(
-            email: 'saramic@gmail.com',
-            username: 'developer'
+          email: 'saramic@gmail.com',
+          username: 'developer'
         )
       end
 
       Then 'username is highlighted due to error' do
         wait_for do
-          page.find('input[name="user[username]"]')[:class]
-        end.to include('is-invalid')
+          focus_on(:form).input_for('user[username]')
+        end.to be_invalid
       end
     end
 
@@ -104,35 +104,16 @@ feature 'User signup', js: true do
       When "Michael signs up with username 'developer'" do
         visit root_path
         focus_on(:signup).submit_with(
-            email: 'email@example.com',
-            username: 'some-username'
+          email: 'email@example.com',
+          username: 'some-username'
         )
       end
 
       Then 'an error is shown' do
         wait_for do
-          page.find('#error_explanation').find_all('li').map(&:text)
+          focus_on(:form).error_message
         end.to eq(['Email has already been taken'])
       end
     end
   end
-end
-
-def label_input_tags(page)
-  page.document.synchronize do
-    page
-      .find_all('div[class="form-group"]')
-      .map do |element|
-      [
-        find_field_in_element(element, 'label', :text),
-        find_field_in_element(element, 'input', :value)
-      ]
-    end.to_h
-  end
-end
-
-def find_field_in_element(element, field_name, value)
-  element.find(field_name).send(value)
-rescue StandardError
-  "NO-#{field_name.upcase}-FOUND"
 end
