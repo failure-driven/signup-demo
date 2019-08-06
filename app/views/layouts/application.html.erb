@@ -11,7 +11,9 @@
   </head>
 
   <body>
-    <nav><%= link_to 'Home', root_path, 'data-turbolinks' => false %></nav>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <%= link_to 'Home', root_path, class: 'navbar-brand', 'data-turbolinks' => false %>
+    </nav>
     <%= render 'layouts/flashes' %>
     <%= yield %>
   </body>
