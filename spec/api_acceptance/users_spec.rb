@@ -29,17 +29,16 @@ RSpec.describe 'Users', type: :request do
   describe 'POST /users' do
     it 'redirects on successful create' do
       # TODO
+
+      # post '/users', params: {
+      #     user: { email: 'email@example.com', username: 'valid-username'}
+      # }
+      # expect(response).to have_http_status(302)
+      # expect(
+      #   response.headers.to_hash['Location']
+      # ).to match('/users/valid-username')
     end
 
-    it 'returns unprocessable with invalid username blank' do
-      post '/users', params: { user: { username: '' } }
-      expect(response).to have_http_status(422)
-    end
-
-    it 'returns unprocessable with invalid username with spaces' do
-      post '/users', params: { user: { username: 'space is not valid' } }
-      expect(response).to have_http_status(422)
-    end
   end
 
   describe 'GET /users' do
@@ -50,11 +49,3 @@ RSpec.describe 'Users', type: :request do
     end
   end
 end
-
-# post '/users', params: {
-#     user: {
-#         email: 'email@example.com', username: 'valid-username'
-#     }
-# }
-# expect(response).to have_http_status(302)
-# expect(response.headers.to_hash['Location']).to eq('http://www.example.com/users/valid-username')
