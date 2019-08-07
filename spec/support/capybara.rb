@@ -41,6 +41,8 @@ Capybara::Screenshot.webkit_options = {
 Capybara::Screenshot.autosave_on_failure = false
 Capybara::Screenshot.prune_strategy = :keep_last_run
 
+Webdrivers.cache_time = 1.month.to_i
+
 RSpec.configure do |config|
   config.after do |example|
     if (example.metadata[:type] == :feature) &&
