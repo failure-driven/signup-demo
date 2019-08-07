@@ -1,24 +1,38 @@
-# README
+# Signup Demo
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Demo Behaviour Driven Development (BDD) app.
 
-Things you may want to cover:
+## getting started
 
-* Ruby version
+run all the tests
 
-* System dependencies
+```
+bin/full-build
+```
 
-* Configuration
+## branches
 
-* Database creation
+Jump to form not redirecting branch
 
-* Database initialization
+```
+make ddd1
+```
 
-* How to run the test suite
+Jump to no react branch
 
-* Services (job queues, cache servers, search engines, etc.)
+```
+make ddd2
+```
 
-* Deployment instructions
+Jump to demo OmniAuth branch
 
-* ...
+```
+make oauth
+```
+
+Jump back to master
+
+```
+make master
+```
+
