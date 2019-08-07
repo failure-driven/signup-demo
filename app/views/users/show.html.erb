@@ -1,13 +1,18 @@
-<h1>Your Profile</h1>
+<div class="card bg-light">
+  <article class="card-body mx-auto">
+    <h4 class="card-title mt-3 text-center">Your Profile</h4>
 
-<p id="notice"><%= notice %></p>
+    <p>
+      <strong>Email:</strong>
+      <%= @user.email %>
+    </p>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+    <p>
+      <strong>Username:</strong>
+      <%= @user.username %>
+    </p>
 
-<p>
-  <strong>Username:</strong>
-  <%= @user.username %>
-</p>
+    <a href="#" class="btn btn-primary btn-block btn-lg">Start App</a>
+
+  </article>
+</div>

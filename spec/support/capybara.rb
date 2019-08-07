@@ -46,7 +46,7 @@ RSpec.configure do |config|
     if (example.metadata[:type] == :feature) &&
        example.metadata[:js] &&
        example.exception.present?
-      Capybara::Screenshot.screenshot_and_open_image
+      # Capybara::Screenshot.screenshot_and_open_image
     end
   end
 end

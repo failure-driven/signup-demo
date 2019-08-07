@@ -5,21 +5,21 @@ feature 'User signup', js: true do
     When 'Selena signs up with a valid username' do
       visit root_path
       click_on('Sign up')
-      fill_in('Email', with: 'selenawiththetattoo@gmail.com')
-      fill_in('Username', with: 'selenawiththetattoo')
-      fill_in('Password', with: 'password')
-      click_on('Sign up')
+      focus_on(:signup).submit_with(
+        email: 'selenawiththetattoo@gmail.com',
+        username: 'selenawiththetattoo',
+        password: 'password'
+      )
     end
 
-    Then 'her profile is shown' do
-      wait_for { page.current_path }.to eq '/users/selenawiththetattoo'
-      wait_for { page.find('h1') }.to have_text('Your Profile')
+    Then 'she is signed in' do
       wait_for do
-        p_strong_tags(page)
-      end.to eq(
-        'Email:' => 'selenawiththetattoo@gmail.com',
-        'Username:' => 'selenawiththetattoo'
-      )
+        focus_on(:flash_messages).text
+      end.to eq('Welcome! You have signed up successfully.')
+
+      wait_for { focus_on(:page_header).title }.to eq('Your Profile')
+
+      wait_for { focus_on(:button).text }.to eq('Start App')
     end
   end
 
@@ -37,7 +37,8 @@ feature 'User signup', js: true do
         provider: 'twitter',
         uid: '123456',
         info: {
-          email: 'selenasmall88@gmail.com'
+          email: 'selenasmall88@gmail.com',
+          nickname: 'selenasmall88'
         }
       )
       OmniAuth.config.mock_auth[:github] = OmniAuth::AuthHash.new(
@@ -65,9 +66,9 @@ feature 'User signup', js: true do
 
       Then 'her profile is shown' do
         wait_for { page.current_path }.to eq '/users/selenawiththetattoo'
-        wait_for { page.find('h1') }.to have_text('Your Profile')
+        wait_for { focus_on(:page_header).title }.to eq('Your Profile')
         wait_for do
-          p_strong_tags(page)
+          focus_on(:profile).values
         end.to eq(
           'Email:' => 'selenawiththetattoo@gmail.com',
           'Username:' => 'selenawiththetattoo'
@@ -84,9 +85,9 @@ feature 'User signup', js: true do
 
       Then 'her profile is shown' do
         wait_for { page.current_path }.to eq '/users/selenasmall88'
-        wait_for { page.find('h1') }.to have_text('Your Profile')
+        wait_for { focus_on(:page_header).title }.to eq('Your Profile')
         wait_for do
-          p_strong_tags(page)
+          focus_on(:profile).values
         end.to eq(
           'Email:' => 'selenasmall88@gmail.com',
           'Username:' => 'selenasmall88'
@@ -103,9 +104,9 @@ feature 'User signup', js: true do
 
       Then 'her profile is shown' do
         wait_for { page.current_path }.to eq '/users/selenasmall'
-        wait_for { page.find('h1') }.to have_text('Your Profile')
+        wait_for { focus_on(:page_header).title }.to eq('Your Profile')
         wait_for do
-          p_strong_tags(page)
+          focus_on(:profile).values
         end.to eq(
           'Email:' => 'selenasmall@gmail.com',
           'Username:' => 'selenasmall'
@@ -122,9 +123,9 @@ feature 'User signup', js: true do
 
       Then 'her profile is shown' do
         wait_for { page.current_path }.to eq '/users/in_selenasmall'
-        wait_for { page.find('h1') }.to have_text('Your Profile')
+        wait_for { focus_on(:page_header).title }.to eq('Your Profile')
         wait_for do
-          p_strong_tags(page)
+          focus_on(:profile).values
         end.to eq(
           'Email:' => 'in_selenasmall@gmail.com',
           'Username:' => 'in_selenasmall'
@@ -137,35 +138,37 @@ feature 'User signup', js: true do
     When 'Michael signs up with an invalid username' do
       visit root_path
       click_on('Sign up')
-      fill_in('Email', with: 'saramic@gmail.com')
-      fill_in('Username', with: '50/50')
-      fill_in('Password', with: 'password')
+      focus_on(:signup).fill_in_with(
+        email: 'saramic@gmail.com',
+        username: '50/50',
+        password: 'password'
+      )
     end
 
     Then 'username is highlighted due to error' do
       wait_for do
-        page.find('input[name="user[username]"]')[:class]
+        focus_on(:form).input_for('user[username]').class
       end.to include('is-invalid')
     end
 
     When 'the user clicks signup anyway' do
-      click_on('Sign up')
+      focus_on(:form).submit
     end
 
     Then 'an error is shown' do
       wait_for do
-        page.find('#error_explanation').find_all('li').map(&:text)
+        focus_on(:form).error_message
       end.to eq(['Username can only have alphanumeric characters'])
     end
 
     When 'the user clicks home' do
-      click_on('Home')
+      focus_on(:nav).go('Home')
     end
 
     Then 'they are taken to the home url with empty fields' do
       wait_for { page.current_path }.to eq '/users/sign_in'
       wait_for do
-        label_input_tags(page)
+        focus_on(:form).inputs
       end.to include(
         'Email' => ''
       )
@@ -185,15 +188,16 @@ feature 'User signup', js: true do
       When "Michael signs up with username 'developer'" do
         visit root_path
         click_on('Sign up')
-        fill_in('Email', with: 'saramic@gmail.com')
-        fill_in('Username', with: 'developer')
-        fill_in('Password', with: 'password')
-        click_on('Sign up')
+        focus_on(:signup).submit_with(
+          email: 'saramic@gmail.com',
+          username: 'developer',
+          password: 'password'
+        )
       end
 
       Then 'an error is shown' do
         wait_for do
-          page.find('#error_explanation').find_all('li').map(&:text)
+          focus_on(:form).error_message
         end.to eq(['Username has already been taken'])
       end
     end
@@ -204,14 +208,16 @@ feature 'User signup', js: true do
             with username developer' do
         visit root_path
         click_on('Sign up')
-        fill_in('Email', with: 'saramic@gmail.com')
-        fill_in('Username', with: 'developer')
-        fill_in('Password', with: 'password')
+        focus_on(:signup).fill_in_with(
+          email: 'saramic@gmail.com',
+          username: 'developer',
+          password: 'password'
+        )
       end
 
       Then 'username is highlighted due to error' do
         wait_for do
-          page.find('input[name="user[username]"]')[:class]
+          focus_on(:form).input_for('user[username]').class
         end.to include('is-invalid')
       end
     end
@@ -220,48 +226,18 @@ feature 'User signup', js: true do
       When "Michael signs up with username 'developer'" do
         visit root_path
         click_on('Sign up')
-        fill_in('Email', with: 'email@example.com')
-        fill_in('Username', with: 'some-username')
-        fill_in('Password', with: 'password')
-        click_on('Sign up')
+        focus_on(:signup).submit_with(
+          email: 'email@example.com',
+          username: 'some-username',
+          password: 'password'
+        )
       end
 
       Then 'an error is shown' do
         wait_for do
-          page.find('#error_explanation').find_all('li').map(&:text)
+          focus_on(:form).error_message
         end.to eq(['Email has already been taken'])
       end
     end
   end
-end
-
-def p_strong_tags(page)
-  page
-    .find_all('p strong')
-    .map do |p_element|
-      strong_text = p_element.text
-      [
-        strong_text,
-        p_element.find(:xpath, '..').text.sub(strong_text, '').strip
-      ]
-    end.to_h
-end
-
-def label_input_tags(page)
-  page.document.synchronize do
-    page
-      .find_all('div[class="form-group"]')
-      .map do |element|
-      [
-        find_field_in_element(element, 'label', :text),
-        find_field_in_element(element, 'input', :value)
-      ]
-    end.to_h
-  end
-end
-
-def find_field_in_element(element, field_name, value)
-  element.find(field_name).send(value)
-rescue StandardError
-  "NO-#{field_name.upcase}-FOUND"
 end

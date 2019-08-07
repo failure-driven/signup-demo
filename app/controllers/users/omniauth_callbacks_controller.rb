@@ -8,7 +8,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "Facebook") if is_navigational_format?
     else
       session["devise.facebook_data"] = request.env["omniauth.auth"]
-      render 'users/new'
+      render 'devise/registrations/new'
       # redirect_to new_user_registration_url
     end
   end
@@ -22,7 +22,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "Twitter") if is_navigational_format?
     else
       session["devise.twitter_data"] = request.env["omniauth.auth"]
-      render 'users/new'
+      render 'devise/registrations/new'
     end
   end
 
@@ -35,7 +35,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "Github") if is_navigational_format?
     else
       session["devise.github_data"] = request.env["omniauth.auth"]
-      render 'users/new'
+      render 'devise/registrations/new'
     end
   end
 
@@ -48,7 +48,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       set_flash_message(:notice, :success, kind: "Linkedin") if is_navigational_format?
     else
       session["devise.linkedin_data"] = request.env["omniauth.auth"]
-      render 'users/new'
+      render 'devise/registrations/new'
     end
   end
 
