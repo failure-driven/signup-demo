@@ -21,7 +21,7 @@
 
   <div class="form-group">
     <%= form.label :username %>
-    <%= react_input_field_for @user,
+    <%= react_input_with_errors_for @user,
       modelname: 'user',
       fieldname: 'username',
       placeholder: 'Username',

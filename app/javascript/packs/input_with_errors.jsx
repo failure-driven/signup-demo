@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import Input from "../react/Input";
+import InputWithErrors from "../react/InputWithErrors";
 
 document.addEventListener("DOMContentLoaded", () => {
   const currentScript = (() => {
@@ -13,7 +13,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   ReactDOM.render(
-    <Input data={dataAttributes} />,
+    <InputWithErrors data={dataAttributes} />,
     currentScript.parentElement.appendChild(document.createElement("div"))
   );
 });

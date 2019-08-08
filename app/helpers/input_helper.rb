@@ -12,9 +12,9 @@ module InputHelper
     end
   end
 
-  def react_input_field_for(model, args)
+  def react_input_with_errors_for(model, args)
     model_data model, args do
-      javascript_pack_tag 'input'
+      javascript_pack_tag 'input_with_errors'
     end
   end
 end

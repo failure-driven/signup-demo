@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import { object as objectType, shape, string } from "prop-types";
 import { attempt } from "../api/Api";
 
-const Input = ({ data }) => {
-  const [modelField, setModelField] = useState(data.data[data.fieldname] || "");
+const InputWithErrors = ({ data }) => {
+  const [modelField, setModelField] = useState(
+    (data.data && data.data[data.fieldname]) || ""
+  );
   const [error, setError] = useState();
 
   const joinClasses = classes => {
@@ -32,14 +34,16 @@ const Input = ({ data }) => {
     />
   );
 };
-Input.propTypes = {
+InputWithErrors.propTypes = {
   data: shape({
-    data: objectType.isRequired,
-    modelname: string.isRequired,
-    placeholder: string.isRequired,
-    fieldname: string.isRequired,
+    data: objectType,
+    modelname: string,
+    placeholder: string,
+    fieldname: string,
     class: string
-  }).isRequired
+  })
 };
-
-export default Input;
+InputWithErrors.defaultProps = {
+  data: {}
+};
+export default InputWithErrors;
