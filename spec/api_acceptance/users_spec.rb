@@ -28,8 +28,6 @@ RSpec.describe 'Users', type: :request do
 
   describe 'POST /users' do
     it 'redirects on successful create' do
-      # TODO
-
       # post '/users', params: {
       #   user: {
       #     email: 'email@example.com', username: 'valid-username'

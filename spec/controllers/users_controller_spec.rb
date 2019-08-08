@@ -40,8 +40,6 @@ describe UsersController, type: :controller do
       before { allow(user).to receive(:save).and_return(true) }
 
       it 'redirects if user saves successfully' do
-        # TODO
-
         # expect(user).to receive(:save).and_return(true)
         # post :create, params: {
         #     user: {
