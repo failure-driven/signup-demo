@@ -1,20 +1,74 @@
-// import React, {useState} from "react";
-//
+import React, { useState } from "react";
+
+const Input = () => {
+  return <input value="" />;
+};
+
+export default Input;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // const Input = () => {
-// const Input = ({data}) => {
-//   const [value] = useState("")
-//   const [value, setValue] = useState("")
-//   const [value, setValue] = useState((data.data && data.data[data.fieldname]) || "");
+//   const [value, setValue] = useState("");
 //
-//   const updateState = (event) => {
-//     setValue(event.target.value)
-//   };
+//   const updateState = event => setValue(event.target.value);
 //
-//   return <input />
-//     value={value}
-//     onChange={updateState}
-//     name={`${data.modelname}[${data.fieldname}]`}
-//     placeholder={data.placeholder}
+//   return <input value={value} onChange={updateState} />;
 // };
 //
-// export default Input;
+// const Input = ({ data }) => {
+//   const [value, setValue] = useState(
+//     (data.data && data.data[data.fieldname]) || ""
+//   );
+//
+//   const updateState = event => setValue(event.target.value);
+//
+//   return (
+//     <input
+//       value={value}
+//       name={`${data.modelname}[${data.fieldname}]`}
+//       placeholder={data.placeholder}
+//       onChange={updateState}
+//     />
+//   );
+// };
