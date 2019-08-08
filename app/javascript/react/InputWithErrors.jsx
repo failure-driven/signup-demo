@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 
-const Input = () => {
+const InputWithErrors = () => {
   return <input value="" />;
 };
 
-export default Input;
+export default InputWithErrors;
 
 
 

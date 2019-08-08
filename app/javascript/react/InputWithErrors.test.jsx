@@ -1,10 +1,10 @@
 import React from "react";
 import { shallow } from "enzyme";
-import Input from "./Input";
+import InputWithErrors from "./InputWithErrors";
 
-describe("Input", () => {
+describe("InputWithErrors", () => {
   it("binds username to the input field value", () => {
-    const wrapper = shallow(<Input data={{}} />);
+    const wrapper = shallow(<InputWithErrors data={{}} />);
     expect(wrapper.find("input").prop("value")).toEqual("");
     // wrapper.find("input").simulate("change", { target: { value: "username" } });
     // expect(wrapper.find("input").prop("value")).toEqual("username");
@@ -18,7 +18,7 @@ describe("Input", () => {
   //     fieldname: "username",
   //     placeholder: "Username Placeholder"
   //   };
-  //   const wrapper = shallow(<Input data={data} />);
+  //   const wrapper = shallow(<InputWithErrors data={data} />);
   //   expect(wrapper.find("input").prop("value")).toEqual("the username");
   //   expect(wrapper.find("input").prop("name")).toEqual("the_model[username]");
   //   expect(wrapper.find("input").prop("placeholder")).toEqual(

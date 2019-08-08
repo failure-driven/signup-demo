@@ -24,15 +24,15 @@ RSpec.describe InputHelper, type: :helper do
     end
   end
 
-  describe '#react_input_field_for' do
+  describe '#react_input_with_errors_for' do
     it 'renders a pack tag wrapped in a data model content block' do
       expect(
-        helper.react_input_field_for('model', foo: :bar)
+        helper.react_input_with_errors_for('model', foo: :bar)
       ).to match(
         '<div ' \
           'data=\"&quot;model&quot;\" ' \
           'data-foo=\"&quot;bar&quot;\">' \
-          '<script src=\"/packs-test/js/input-[0-9a-z]+.js\"></script>' \
+          '<script src=\"/packs-test/js/input_with_errors-[0-9a-z]+.js\"></script>' \
         '</div>'
       )
     end
