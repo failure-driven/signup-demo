@@ -1,21 +1,20 @@
-import React, { useState } from "react";
-import { attempt } from "../api/Api";
-
-const Input = ({ data }) => {
-  // const [modelField, setModelField] = useState(data.data[data.fieldname] || "");
-  // const updateUsername = event => {
-  //   setModelField(event.target.value);
-  // };
-  // return (
-  //   <input
-  //     type="text"
-  //     placeholder={data.placeholder}
-  //     onChange={updateUsername}
-  //     name={`${data.modelname}[${data.fieldname}]`}
-  //     value={modelField}
-  //     className={data.class}
-  //   />
-  // );
-};
-
-export default Input;
+// import React, {useState} from "react";
+//
+// const Input = () => {
+// const Input = ({data}) => {
+//   const [value] = useState("")
+//   const [value, setValue] = useState("")
+//   const [value, setValue] = useState((data.data && data.data[data.fieldname]) || "");
+//
+//   const updateState = (event) => {
+//     setValue(event.target.value)
+//   };
+//
+//   return <input />
+//     value={value}
+//     onChange={updateState}
+//     name={`${data.modelname}[${data.fieldname}]`}
+//     placeholder={data.placeholder}
+// };
+//
+// export default Input;

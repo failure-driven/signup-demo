@@ -24,20 +24,10 @@ feature 'User signup', js: true do
   scenario 'User cannot sign up with an invalid username' do
     When 'Michael signs up with an invalid username' do
       visit root_path
-      focus_on(:signup).fill_in_with(
+      focus_on(:signup).submit_with(
         email: 'saramic@gmail.com',
         username: '50/50'
       )
-    end
-
-    Then 'username is highlighted due to error' do
-      wait_for do
-        focus_on(:form).input_for('user[username]').class
-      end.to include('is-invalid')
-    end
-
-    When 'the user clicks signup anyway' do
-      focus_on(:form).submit
     end
 
     Then 'an error is shown' do
@@ -79,24 +69,6 @@ feature 'User signup', js: true do
         wait_for do
           focus_on(:form).error_message
         end.to eq(['Username has already been taken'])
-      end
-    end
-
-    scenario 'User is shown an error
-              whilst signing up with an existing username' do
-      When 'Michael fills in sign up form
-            with username developer' do
-        visit root_path
-        focus_on(:signup).fill_in_with(
-          email: 'saramic@gmail.com',
-          username: 'developer'
-        )
-      end
-
-      Then 'username is highlighted due to error' do
-        wait_for do
-          focus_on(:form).input_for('user[username]').class
-        end.to include('is-invalid')
       end
     end
 
