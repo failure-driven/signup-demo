@@ -1,6 +1,9 @@
 require 'rails_helper'
 
 feature 'User signup', js: true do
+  before {
+    page.driver.browser.manage.window.resize_to(767, 768)
+  }
   scenario 'User signs up successfully' do
     When 'Selena signs up with a valid username' do
       visit root_path
