@@ -18,6 +18,7 @@ feature 'User signup', js: true do
       wait_for { focus_on(:page_header).title }.to eq('Your Profile')
 
       wait_for { focus_on(:button).text }.to eq('Start App')
+      sleep(2)
     end
   end
 end
