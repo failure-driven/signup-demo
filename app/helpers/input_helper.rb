@@ -14,7 +14,7 @@ module InputHelper
 
   def react_input_with_errors_for(model, args)
     model_data model, args do
-      javascript_pack_tag 'input_with_errors'
+      javascript_include_tag 'input_with_errors'
     end
   end
 end
