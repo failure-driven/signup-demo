@@ -32,7 +32,7 @@ RSpec.describe InputHelper, type: :helper do
         '<div ' \
           'data=\"&quot;model&quot;\" ' \
           'data-foo=\"&quot;bar&quot;\">' \
-          '<script src=\"/packs-test/js/input_with_errors-[0-9a-z]+.js\"></script>' \
+          '<script src=\"/assets/input_with_errors-[0-9a-z]+.js\"></script>' \
         '</div>'
       )
     end
