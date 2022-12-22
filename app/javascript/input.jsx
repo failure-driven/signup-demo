@@ -10,8 +10,10 @@ document.addEventListener("DOMContentLoaded", () => {
   })();
   const dataAttributes = {};
   Object.entries(currentScript.parentElement.attributes).forEach(([, data]) => {
+    console.log(JSON.stringify(data.value));
     dataAttributes[data.name.replace(/^data-/, "")] = JSON.parse(data.value);
   });
+  console.log(JSON.stringify(dataAttributes));
 
   ReactDOM.render(
     <Input data={dataAttributes} />,
