@@ -1,6 +1,25 @@
-require: rubocop-performance
+inherit_from: .rubocop_todo.yml
+
+require:
+  - standard
+  - rubocop-performance
+  - rubocop-rails
+  - rubocop-rake
+  - rubocop-rspec
+
+# Use the defaults from https://github.com/testdouble/standard.
+inherit_gem:
+  standard: config/ruby-3.0.yml
 
 AllCops:
+  TargetRubyVersion: 3.0
+  DefaultFormatter: progress
+  DisplayCopNames: true
+  DisplayStyleGuide: true
+  NewCops: enable
+  UseCache: true
+  CacheRootDirectory: .
+  MaxFilesInCache: 10000
   Exclude:
     - Rakefile
     - Gemfile
@@ -26,13 +45,41 @@ AllCops:
     - node_modules/**/*
     - vendor/**/*
 
-Metrics/BlockLength:
-  Enabled: false
-
-Metrics/LineLength:
+Layout/LineLength:
   Max: 75
   Exclude:
     - config/**/*
+
+Metrics/BlockLength:
+  Enabled: false
+
+RSpec/Capybara/FeatureMethods:
+  EnabledMethods:
+    - feature
+    - scenario
+
+RSpec/DescribedClass:
+  EnforcedStyle: explicit
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/InstanceVariable:
+  Enabled: false
+
+RSpec/MultipleExpectations:
+  Enabled: false
+
+RSpec/NoExpectationExample:
+  Enabled: false
+
+# use find_by over find for capybara
+Rails/DynamicFindBy:
+  Exclude:
+    - spec/support/features/**/*
+RSpec/Capybara/SpecificFinders:
+  Exclude:
+    - spec/support/features/**/*
 
 Style/Documentation:
   Enabled: false

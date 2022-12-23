@@ -8,7 +8,7 @@ module PageFragments
 
     def submit_with(args)
       fill_in_with(args)
-      browser.click_on('Sign up')
+      browser.click_on("Sign up")
     end
   end
 end

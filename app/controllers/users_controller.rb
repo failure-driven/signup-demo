@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   def show
     @user = User.find_by(username: params[:username])
 
-    render :new, status: 422 unless @user
+    render :new, status: :unprocessable_entity unless @user
   end
 
   def new
@@ -14,9 +14,9 @@ class UsersController < ApplicationController
 
     if @user.save
       redirect_to "/users/#{@user.username}",
-                  notice: 'User was successfully created.'
+        notice: t("User was successfully created")
     else
-      render :new, status: 422
+      render :new, status: :unprocessable_entity
     end
   end
 

@@ -11,7 +11,7 @@ module PageFragments
     end
 
     def error_message
-      browser.find('#error_explanation').find_all('li').map(&:text)
+      browser.find("#error_explanation").find_all("li").map(&:text)
     end
 
     def input_for(input_name)
@@ -19,7 +19,7 @@ module PageFragments
     end
 
     def submit
-      browser.click_on('Sign up')
+      browser.click_on("Sign up")
     end
 
     def inputs
@@ -32,18 +32,18 @@ module PageFragments
       browser.synchronize do
         browser
           .find_all('div[class="form-group"]')
-          .map do |element|
+          .to_h do |element|
           [
-            find_field_in_element(element, 'label', :text),
-            find_field_in_element(element, 'input', :value)
+            find_field_in_element(element, "label", :text),
+            find_field_in_element(element, "input", :value)
           ]
-        end.to_h
+        end
       end
     end
 
     def find_field_in_element(element, field_name, value)
       element.find(field_name).send(value)
-    rescue StandardError
+    rescue
       "NO-#{field_name.upcase}-FOUND"
     end
   end

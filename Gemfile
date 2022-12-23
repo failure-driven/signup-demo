@@ -43,8 +43,11 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen'
 
-  gem 'rubocop'
-  gem 'rubocop-performance'
+  gem "standard", "~> 1.18", require: false
+  gem "rubocop-performance", "~> 1.15", require: false
+  gem "rubocop-rake", "~> 0.6.0", require: false
+  gem "rubocop-rails", "~> 2.17", require: false
+  gem "rubocop-rspec", "~> 2.16", require: false
 end
 
 

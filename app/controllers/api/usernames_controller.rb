@@ -12,7 +12,7 @@ module Api
     private
 
     def username_valid?
-      params[:username] == '' ||
+      params[:username] == "" ||
         @user.valid? ||
         @user.errors.messages[:username].blank?
     end
@@ -23,7 +23,7 @@ module Api
       ).pluck(:username)
       @username_suggestions = (
         generated_usernames(username) - taken_usernames
-      ).map { |suggestion| { username: suggestion } }
+      ).map { |suggestion| {username: suggestion} }
     end
 
     def generated_usernames(username)

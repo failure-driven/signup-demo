@@ -35,3 +35,6 @@ yarn-debug.log*
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
+
+# rubocop cache
+rubocop_cache

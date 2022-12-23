@@ -8,6 +8,6 @@ class User < ApplicationRecord
   def validate_username
     return if /^[A-Za-z0-9_-]+$/.match?(username)
 
-    errors.add(:username, 'can only have alphanumeric characters')
+    errors.add(:username, "can only have alphanumeric characters")
   end
 end

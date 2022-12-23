@@ -1,11 +1,11 @@
-require 'capybara/rspec'
-require 'capybara/rails'
-require 'capybara-screenshot/rspec'
+require "capybara/rspec"
+require "capybara/rails"
+require "capybara-screenshot/rspec"
 
 # Make browser slow down execution to see what's going on
 # in the browser (when running non-Headless)
 module SlomoBridge
-  TIMEOUT = ENV.fetch('SLOMO_MS', '0').to_i / 1000.0
+  TIMEOUT = ENV.fetch("SLOMO_MS", "0").to_i / 1000.0
 
   def execute(*)
     sleep TIMEOUT if TIMEOUT > 0
@@ -22,7 +22,7 @@ Capybara.register_driver :selenium_chrome do |app|
     browser: :chrome,
     desired_capabilities: {
       chromeOptions: {
-        args: ['window-size=800,960']
+        args: ["window-size=800,960"]
       }
     }
   ).tap do |driver|
@@ -46,8 +46,8 @@ Webdrivers.cache_time = 1.month.to_i
 RSpec.configure do |config|
   config.after do |example|
     if (example.metadata[:type] == :feature) &&
-       example.metadata[:js] &&
-       example.exception.present?
+        example.metadata[:js] &&
+        example.exception.present?
       # Capybara::Screenshot.screenshot_and_open_image
     end
   end
