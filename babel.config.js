@@ -60,6 +60,8 @@ module.exports = function(api) {
           useBuiltIns: true
         }
       ],
+      ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
+      ["@babel/plugin-proposal-private-methods", { "loose": true }],
       [
         require('@babel/plugin-transform-runtime').default,
         {
