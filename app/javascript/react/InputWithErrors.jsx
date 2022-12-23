@@ -2,17 +2,17 @@ import React, { useState } from "react";
 import { object as objectType, shape, string } from "prop-types";
 import { attempt } from "../api/Api";
 
-const InputWithErrors = ({ data }) => {
+function InputWithErrors({ data }) {
   const [modelField, setModelField] = useState(
     (data.data && data.data[data.fieldname]) || ""
   );
   const [error, setError] = useState();
 
-  const joinClasses = classes => {
-    return classes.filter(className => className != null).join(" ");
+  const joinClasses = (classes) => {
+    return classes.filter((className) => className != null).join(" ");
   };
 
-  const updateUsername = event => {
+  const updateUsername = (event) => {
     setModelField(event.target.value);
     attempt(event.target.value).then(({ errors }) => {
       if (errors) {
@@ -33,17 +33,17 @@ const InputWithErrors = ({ data }) => {
       className={joinClasses([data.class, error && "is-invalid"])}
     />
   );
-};
+}
 InputWithErrors.propTypes = {
   data: shape({
     data: objectType,
     modelname: string,
     placeholder: string,
     fieldname: string,
-    class: string
-  })
+    class: string,
+  }),
 };
 InputWithErrors.defaultProps = {
-  data: {}
+  data: {},
 };
 export default InputWithErrors;

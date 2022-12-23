@@ -33,7 +33,7 @@ describe("InputWithErrors", () => {
       data: { username: "the username" },
       modelname: "the_model",
       fieldname: "username",
-      placeholder: "Username Placeholder"
+      placeholder: "Username Placeholder",
     };
     const wrapper = shallow(<InputWithErrors data={data} />);
     expect(wrapper.find("input").prop("value")).toEqual("the username");
@@ -46,7 +46,7 @@ describe("InputWithErrors", () => {
   it("sets error state when username attempt errors", async () => {
     attempt.mockResolvedValue({
       dryrunPassed: false,
-      errors: { username: [{ message: "Username is taken" }] }
+      errors: { username: [{ message: "Username is taken" }] },
     });
     const wrapper = shallow(<InputWithErrors data={{}} />);
     const input = () => wrapper.find("input");
@@ -63,7 +63,7 @@ describe("InputWithErrors", () => {
 
     attempt.mockResolvedValue({
       dryrunPassed: false,
-      errors: { username: [{ message: "Username is taken" }] }
+      errors: { username: [{ message: "Username is taken" }] },
     });
     input().simulate("change", { target: { value: "taken-username" } });
     await attempt();
