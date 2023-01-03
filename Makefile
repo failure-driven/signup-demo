@@ -25,3 +25,16 @@ ddd2:
 oauth:
 	git checkout .
 	git checkout omniauth
+
+.PHONY: pg-init
+pg-init:
+	PGPORT=5432 asdf exec initdb tmp/postgres -E utf8 || echo "postgres already initialised"
+
+.PHONY: pg-start
+pg-start:
+	PGPORT=5432 asdf exec pg_ctl -D tmp/postgres -l tmp/postgres/logfile start || echo "pg was probably running"
+
+.PHONY: pg-stop
+pg-stop:
+	PGPORT=5432 asdf exec pg_ctl -D tmp/postgres stop -s -m fast || echo "postgres already stopped"
+
