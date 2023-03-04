@@ -8,6 +8,7 @@ const InputWithErrors = () => {
   return (
     <input
       value={value}
+      name="user[username]"
       onChange={updateState}
     />
   );
