@@ -14,6 +14,7 @@ module.exports = {
     application: [
       "./app/javascript/application.js",
       "./app/assets/stylesheets/bootstrap.scss",
+      "./app/assets/stylesheets/scaffolds.scss",
     ],
     input_with_errors: ["./app/javascript/input_with_errors.jsx"],
   },
