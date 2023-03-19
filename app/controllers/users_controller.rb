@@ -13,12 +13,12 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     @user.save
 
-    # if @user.save
+    if @user.save
     #   redirect_to "/users/#{@user.username}",
     #               notice: 'User was successfully created.'
-    # else
-    #   render :new, status: 422
-    # end
+    else
+      render :new, status: 422
+    end
   end
 
   private
