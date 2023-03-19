@@ -8,6 +8,7 @@ build:
 	bin/full-build
 
 clean:
+	bundle exec rails restart
 	bundle exec rake db:migrate:reset
 
 master:
