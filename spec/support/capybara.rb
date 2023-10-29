@@ -1,6 +1,6 @@
-require 'capybara/rspec'
-require 'capybara/rails'
-require 'capybara-screenshot/rspec'
+require "capybara/rspec"
+require "capybara/rails"
+require "capybara-inline-screenshot/rspec"
 
 # Make browser slow down execution to see what's going on
 # in the browser (when running non-Headless)
@@ -19,12 +19,7 @@ Capybara.default_max_wait_time = 2 # the default is 2
 Capybara.register_driver :selenium_chrome do |app|
   Capybara::Selenium::Driver.new(
     app,
-    browser: :chrome,
-    desired_capabilities: {
-      chromeOptions: {
-        args: ['window-size=800,960']
-      }
-    }
+    browser: :chrome
   ).tap do |driver|
     # Enable slomo mode
     driver.browser.send(:bridge).singleton_class.prepend(SlomoBridge)
@@ -38,17 +33,6 @@ Capybara::Screenshot.webkit_options = {
   height: 768
 }
 
-Capybara::Screenshot.autosave_on_failure = false
-Capybara::Screenshot.prune_strategy = :keep_last_run
-
-Webdrivers.cache_time = 1.month.to_i
-
-RSpec.configure do |config|
-  config.after do |example|
-    if (example.metadata[:type] == :feature) &&
-       example.metadata[:js] &&
-       example.exception.present?
-      # Capybara::Screenshot.screenshot_and_open_image
-    end
-  end
+Capybara::Screenshot.register_driver(:selenium_chrome) do |driver, path|
+  driver.browser.save_screenshot(path)
 end
