@@ -1,4 +1,4 @@
-ruby 3.0.2
-nodejs 18.12.1
-postgres 12.6
+ruby 3.0.6
+nodejs 20.2.0
+postgres 12.11
 yarn 1.22.19

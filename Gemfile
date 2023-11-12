@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '3.0.2'
+ruby '3.0.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 6.1'
+gem 'rails', '~> 6.1.7'
 # Use postgresql as the database for Active Record
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
@@ -58,9 +58,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'rspec-example_steps'
   gem 'capybara', '>= 3.14'
-  gem 'capybara-screenshot'
+  gem 'capybara-inline-screenshot'
   gem 'selenium-webdriver'
-  gem 'webdrivers', '~> 3.0'
   gem 'rspec-wait'
   gem 'rspec-activemodel-mocks'
 
